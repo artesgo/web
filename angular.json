@@ -1,0 +1,139 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "fdn": {
+      "root": "apps/fdn/",
+      "sourceRoot": "apps/fdn/src",
+      "projectType": "application",
+      "prefix": "fdn",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/fdn",
+            "index": "apps/fdn/src/index.html",
+            "main": "apps/fdn/src/main.ts",
+            "polyfills": "apps/fdn/src/polyfills.ts",
+            "tsConfig": "apps/fdn/tsconfig.app.json",
+            "assets": ["apps/fdn/src/favicon.ico", "apps/fdn/src/assets"],
+            "styles": ["apps/fdn/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/fdn/src/environments/environment.ts",
+                  "with": "apps/fdn/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "fdn:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "fdn:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "fdn:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/fdn/tsconfig.app.json",
+              "apps/fdn/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/fdn/jest.config.js",
+            "tsConfig": "apps/fdn/tsconfig.spec.json",
+            "setupFile": "apps/fdn/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "fdn-e2e": {
+      "root": "apps/fdn-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/fdn-e2e/cypress.json",
+            "tsConfig": "apps/fdn-e2e/tsconfig.e2e.json",
+            "devServerTarget": "fdn:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "fdn:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/fdn-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/schematics"
+  },
+  "schematics": {
+    "@nrwl/schematics:application": {
+      "style": "scss",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:library": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "fdn"
+}
