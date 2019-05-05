@@ -1,25 +1,21 @@
-<div style="text-align:center">
-  <h1>Welcome to {{ title }}!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png"
-  />
-</div>
+<fdn-grid [cols]="3" [columnSizes]="colSizes" class="main">
+  <div fdn-grid-item [col]="1" [row]="1" [rowSpan]="2" class="nav-item">Header Logo Cell</div>
+  <header fdn-grid-item [col]="2" [row]="1">Javascript to Web App</header>
+  <div fdn-grid-item [col]="3" [row]="1">Login Panel</div>
 
-<p>This is an Angular app built with <a href="https://nx.dev">Nx</a>.</p>
-<p>🔎 **Nx is a set of Angular CLI power-ups for modern development.**</p>
+  <h1 fdn-grid-item [col]="2" [row]="2">{{ page }}</h1>
+  <div fdn-grid-item [col]="3" [row]="2">Page Controls</div>
 
-<h2>Quick Start & Documentation</h2>
+  <nav fdn-grid-item [col]="1" [row]="3" class="nav-item">
+    <a href="#" routerLink="/github">Github</a>
+    <a href="#" routerLink="/javascript">Javascript</a>
+    <a href="#" routerLink="/html">Html</a>
+    <a href="#" routerLink="/css">Css</a>
+    <a href="#" routerLink="/typescript">Typescript</a>
+    <a href="#" routerLink="/angular">Angular</a>
+  </nav>
 
-<ul>
-  <li>
-    <a href="https://nx.dev/getting-started/what-is-nx"
-      >30-minute video showing all Nx features</a
-    >
-  </li>
-  <li>
-    <a href="https://nx.dev/tutorial/01-create-application"
-      >Interactive tutorial</a
-    >
-  </li>
-</ul>
+  <main fdn-grid-item [col]="2" [colSpan]="2" [row]="3">
+    <router-outlet></router-outlet>
+  </main>
+</fdn-grid>

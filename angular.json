@@ -117,6 +117,44 @@
           }
         }
       }
+    },
+    "foundation": {
+      "root": "libs/foundation",
+      "sourceRoot": "libs/foundation/src",
+      "projectType": "library",
+      "prefix": "fdn",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/foundation/tsconfig.lib.json",
+            "project": "libs/foundation/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/foundation/tsconfig.lib.json",
+              "libs/foundation/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/foundation/jest.config.js",
+            "tsConfig": "libs/foundation/tsconfig.spec.json",
+            "setupFile": "libs/foundation/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

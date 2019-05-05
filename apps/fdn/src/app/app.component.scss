@@ -1,0 +1,28 @@
+$unit: 8px;
+
+.grid-item {
+    padding: 1rem;
+}
+
+.nav-item {
+    padding: 0 $unit * 3;
+
+    a {
+        display: block;
+        margin: 1rem 0;
+    }
+}
+
+header{
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 1rem;
+    border-bottom-left-radius: 3rem;
+    background: #FC0;
+
+    + div {
+        border-bottom: 1px solid black;
+        padding: 1rem;
+        background: #FC0;
+    }
+}

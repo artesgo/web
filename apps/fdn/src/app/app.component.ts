@@ -7,4 +7,10 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   title = "fdn";
+  page = "Git"
+  public colSizes = [
+    { value: 200, unit: "px" },
+    { value: 4, unit: "fr" },
+    { value: 2, unit: "fr" },
+  ]
 }
