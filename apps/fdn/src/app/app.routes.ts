@@ -7,6 +7,8 @@ import { HtmlComponent } from './html/html.component';
 import { CssComponent } from './css/css.component';
 import { AngularComponent } from './angular/angular.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ChessComponent } from './chess/chess.component';
+import { FirestoreComponent } from './firestore/firestore.component';
 
 @NgModule({
     imports: [
@@ -18,6 +20,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
             { path: 'css', component: CssComponent },
             { path: 'html', component: HtmlComponent },
             { path: 'angular', component: AngularComponent },
+            { path: 'chess', component: ChessComponent },
+            { path: 'firestore', component: FirestoreComponent },
             { path: '**', component: NotFoundComponent }
         ]
         )
