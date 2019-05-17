@@ -1,0 +1,18 @@
+<section class="container">
+  <fdn-grid [cols]="8" [rows]="8" [columnSizes]="colSizes" [rowSizes]="rowSizes">
+    <ng-container *ngFor="let c of cells; trackBy: trackIndex;">
+      <div fdn-grid-item [row]="c.row" [col]="c.col" [debug]="false" class="rel"
+        [ngClass]="(c.col + c.row) % 2 === 0 ? 'white': 'black'"
+        [class.selected]="c.selected"
+        [class.inRange]="c.inRange">
+        <button class="abs" (click)="select(c)">
+          <ng-container *ngIf="c.piece">
+            {{ c.piece.name }}  {{ getCol(c.piece.col) }}{{ getRow(c.piece.row) }}
+          </ng-container>
+        </button>
+      </div>
+    </ng-container>
+  </fdn-grid>
+</section>
+
+{{ selectedCell | json }}
