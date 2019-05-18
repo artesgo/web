@@ -6,7 +6,6 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = "fdn";
   page = "Git"
   public colSizes = [
     { value: 200, unit: "px" },
