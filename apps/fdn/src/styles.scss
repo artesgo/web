@@ -1,5 +1,5 @@
-@import './assets/link';
-@import './assets/list';
+@import './styles/link';
+@import './styles/list';
 
 /* You can add global styles to this file, and also import other style files */
 * {
@@ -33,4 +33,6 @@ code {
     display: block;
     background: #333;
     color: #FC0;
+    padding: 4px;
+    margin-bottom: 1px;
 }
