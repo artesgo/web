@@ -42,26 +42,30 @@ export class ChessComponent implements OnInit {
       this.selectedCell.piece = null;
       // remove selected state from cell
       this.selectedCell.selected = false;
+      this.whiteTurn = !this.whiteTurn;
+      this.dehighlightMoves();
     } else {
-      // if we had a cell that was 
       if (this.selectedCell) {
         this.selectedCell.selected = false;
       }
+
       this.selectedCell = cell;
-      
-      if (!this.selectedCell.piece) {
-        this.selectedCell.selected = false;
+
+      if (this.selectedCell.piece) {
+        if (this.whiteTurn && !this.selectedCell.piece.black) {
+          this.selectedCell.selected = true;
+          this.highlightMoves();
+        } else if (!this.whiteTurn && this.selectedCell.piece.black) {
+          this.selectedCell.selected = true;
+          this.highlightMoves();
+        }
+      } else {
+        this.dehighlightMoves();
       }
-      this.selectedCell.selected = true;
     }
-    this.highlightMoves();
   }
 
   highlightMoves() {
-    this.cells = this.cells.map(cell => {
-      cell.inRange = false;
-      return cell;
-    });
     Chess.getMoves(this.selectedCell.piece, this.cells).map(move => {
       let [_row, _col] = move;
       this.cells = this.cells.map(cell => {
@@ -70,6 +74,13 @@ export class ChessComponent implements OnInit {
         }
         return cell;
       });
+    });
+  }
+
+  dehighlightMoves() {
+    this.cells = this.cells.map(cell => {
+      cell.inRange = false;
+      return cell;
     });
   }
 

@@ -3,7 +3,6 @@ div {
 }
 
 fdn-grid {
-    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -34,6 +33,7 @@ fdn-grid {
 
 .container {
     border: 5px solid black;
+    max-width: 600px;
 }
 
 .moveable {
