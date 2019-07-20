@@ -1,1 +1,6 @@
-<p *ngFor="let item of items | async">{{ item.summary }}: {{ item.description }}</p>
+<p *ngFor="let item of item$">{{ item.summary }}: {{ item.description }}</p>
+
+
+<p *ngFor="let layout of layout$">{{ layout.pageName }}</p>
+
+<p *ngFor="let page of page$">{{ page | json }}</p>

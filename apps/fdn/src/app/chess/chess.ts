@@ -40,7 +40,6 @@ export class Chess {
                         const move = [_x + piece.row, _y + piece.col];
                         let [x, y] = move;
                         let found = cells.find(cell => cell.row === x && cell.col === y && !!cell.piece);
-                        console.log(found);
                         if (!found || found.piece.black !== piece.black) {
                             _cells.push(move);
                         }

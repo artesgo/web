@@ -52,6 +52,7 @@ export class ChessComponent implements OnInit {
       this.selectedCell = cell;
 
       if (this.selectedCell.piece) {
+        this.dehighlightMoves();
         if (this.whiteTurn && !this.selectedCell.piece.black) {
           this.selectedCell.selected = true;
           this.highlightMoves();

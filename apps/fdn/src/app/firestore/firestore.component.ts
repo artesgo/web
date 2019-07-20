@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
-import { Observable } from 'rxjs';
+import { StoreDocument } from './firestore';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'fdn-firestore',
@@ -8,9 +9,24 @@ import { Observable } from 'rxjs';
   styleUrls: ['./firestore.component.scss']
 })
 export class FirestoreComponent implements OnInit {
-  items: Observable<any[]>;
+  item$: any;
+  layout$: any;
+  page$: any;
   constructor(private fb: FirestoreService) {
-    this.items = fb.getData();
+    fb.getData().subscribe( (items: StoreDocument[]) => {
+      this.item$ = items;
+    });
+    fb.getLayouts().pipe(
+      switchMap((items: StoreDocument[]) => {
+        let [page] = items;
+        this.layout$ = items;
+        return fb.getPages(page.key, 'page');
+      })
+    ).subscribe((items: StoreDocument[]) => {
+      console.log(items);
+      
+      this.page$ = items;
+    });
   }
 
   ngOnInit() {

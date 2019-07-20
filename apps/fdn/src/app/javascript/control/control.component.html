@@ -1,0 +1,74 @@
+<fdn-js-nav></fdn-js-nav>
+<h1>Control Statements</h1>
+
+<section>
+  <p>When you are getting ready to go outside, you have a lot of decisions to make before you can go.</p>
+</section>
+
+<p>Do you have your pants on?</p>
+
+<p>Do you have your shoes on?</p>
+
+<ul class="code">
+  <li><code>if (shoes are on) {{ '{' }}</code></li>
+  <li><pre><code>    goOutside();</code></pre></li>
+  <li><code>{{ '}' }}</code></li>
+</ul>
+
+but you only have your shoes on
+
+<ul class="code">
+  <li><code>if (shoes are on <strong>AND</strong> pants are on) {{ '{' }}</code></li>
+  <li><pre><code>    goOutside();</code></pre></li>
+  <li><code>{{ '}' }}</code></li>
+</ul>
+
+we can do this with the equality comparitor,
+
+<ul class="code">
+  <li><code>if (something === somethingElse) {{ '{' }}</code></li>
+  <li><pre><code>    doSomething();</code></pre></li>
+  <li><code>{{ '}' }}</code></li>
+</ul>
+
+
+
+<h2>Comparison Operators</h2>
+
+<section>
+  <p>Some times, you need different type of comparison</p>
+</section>
+
+we can only make a glass of orange juice if we have more than 3 oranges
+
+<ul class="code">
+  <li><code>if (numberOfOranges > 3) {{ '{' }}</code></li>
+  <li><pre><code>    makeOrangeJuice();</code></pre></li>
+  <li><code>{{ '}' }}</code></li>
+</ul>
+
+we can only make a glass of orange juice if we have 3 or more oranges
+
+<ul class="code">
+  <li><code>if (numberOfOranges >= 3) {{ '{' }}</code></li>
+  <li><pre><code>    makeOrangeJuice();</code></pre></li>
+  <li><code>{{ '}' }}</code></li>
+</ul>
+
+<ul class="code">
+  <li>
+    <pre><code>if (oranges >= 3) {{ '{' }}</code></pre>
+  </li>
+  <li>
+    <pre><code>    console.log('make orange juice');</code></pre>
+  </li>
+  <li>
+    <pre><code>} else {{ '{' }}</code></pre>
+  </li>
+  <li>
+    <pre><code>    console.log('you don\'t have enough oranges!');</code></pre>
+  </li>
+  <li>
+    <pre><code>}</code></pre>
+  </li>
+</ul>

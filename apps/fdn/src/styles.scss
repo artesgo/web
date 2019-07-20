@@ -21,18 +21,23 @@ h2 {
     margin: 2rem 0 1rem;
 }
 
+section {
+    margin: 16px 0;
+}
+
 main {
-    padding: 0 2rem;
+    padding: 0 2rem 4rem 2rem;
+
 }
 
-ol {
-    margin: 0 1rem;
+svg {
+    background-color: bisque;
 }
-
 code {
     display: block;
     background: #333;
     color: #FC0;
     padding: 4px;
     margin-bottom: 1px;
+    font-family: 'Courier New', Courier, monospace;
 }

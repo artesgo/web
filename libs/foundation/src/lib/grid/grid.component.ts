@@ -9,13 +9,20 @@ import { GridSize } from './css.unit';
 export class GridComponent implements OnInit {
   _rows: number;
   _cols: number;
-  @Input() rowSizes: GridSize[] = [];
-  @Input() columnSizes: GridSize[] = [];
+  _rowSizes: GridSize[] = [];
+  _columnSizes: GridSize[] = [];
+  @Input() set rowSizes(rows) {
+    this._rowSizes = rows;
+  }
+  @Input() set columnSizes(cols) {
+    this._columnSizes = cols;
+  }
+
   @Input() set rows(val) {
     this._rows = val;
     let rows = ``;
     for (let i = 0; i < val; i++) {
-      rows = `${rows} ${this.getSize(this.rowSizes, i)}`;
+      rows = `${rows} ${this.getSize(this._rowSizes, i)}`;
     }
     rows = rows.trim();
     this.style = { ...this.style, 'grid-template-rows': rows }
@@ -24,7 +31,7 @@ export class GridComponent implements OnInit {
     this._cols = val;
     let cols = ``;
     for (let i = 0; i < val; i++) {
-      cols = `${cols} ${this.getSize(this.columnSizes, i)}`;
+      cols = `${cols} ${this.getSize(this._columnSizes, i)}`;
     }
     cols = cols.trim();
     this.style = { ...this.style, 'grid-template-columns': cols }

@@ -1,5 +1,10 @@
-ol {
-    ul {
-        list-style: none;
-    }
+ol, ul {
+    margin: 16px 0;
+}
+
+ul.code {
+    list-style: none;
+    background: #000;
+    border: 2px solid #000;
+    border-left: 8px solid #000;
 }

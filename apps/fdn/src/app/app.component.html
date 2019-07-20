@@ -1,12 +1,11 @@
 <fdn-grid [cols]="3" [columnSizes]="colSizes" class="main">
-  <div fdn-grid-item [col]="1" [row]="1" [rowSpan]="2" class="nav-item">Header Logo Cell</div>
-  <header fdn-grid-item [col]="2" [row]="1">Javascript to Web App</header>
-  <div fdn-grid-item [col]="3" [row]="1">Login Panel</div>
+  <div    fdn-grid-item [debug]="false" [col]="1" [row]="1" class="nav-item"
+    (click)="toggleSide()"
+  >Header Logo Cell</div>
+  <header fdn-grid-item [debug]="false" [col]="2" [row]="1">Javascript to Web App</header>
+  <div    fdn-grid-item [debug]="false" [col]="3" [row]="1">Login Panel</div>
 
-  <h1 fdn-grid-item [col]="2" [row]="2">{{ page }}</h1>
-  <div fdn-grid-item [col]="3" [row]="2">Page Controls</div>
-
-  <nav fdn-grid-item [col]="1" [row]="3" class="nav-item">
+  <nav fdn-grid-item [debug]="false" [col]="1" [row]="2" class="nav-item">
     <a href="#" routerLink="/github">Github</a>
     <a href="#" routerLink="/javascript">Javascript</a>
     <a href="#" routerLink="/html">Html</a>
@@ -15,9 +14,10 @@
     <a href="#" routerLink="/angular">Angular</a>
     <a href="#" routerLink="/chess">Chess</a>
     <a href="#" routerLink="/firestore">Firebase</a>
+    <a href="#" routerLink="/d3">D3</a>
   </nav>
 
-  <main fdn-grid-item [col]="2" [colSpan]="2" [row]="3">
+  <main fdn-grid-item [debug]="false" [col]="2" [colSpan]="2" [row]="2">
     <router-outlet></router-outlet>
   </main>
 </fdn-grid>

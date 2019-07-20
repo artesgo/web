@@ -5,7 +5,7 @@ import { GridItemDirective } from './grid-item/grid-item.directive';
 
 const EXPORTED = [
   GridComponent,
-  GridItemDirective
+  GridItemDirective,
 ]
 
 @NgModule({

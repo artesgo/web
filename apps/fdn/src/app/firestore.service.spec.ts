@@ -9,4 +9,6 @@ describe('FirestoreService', () => {
     const service: FirestoreService = TestBed.get(FirestoreService);
     expect(service).toBeTruthy();
   });
+
+  it('should retrieve data');
 });
