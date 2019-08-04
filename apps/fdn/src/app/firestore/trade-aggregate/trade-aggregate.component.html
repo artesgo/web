@@ -1,0 +1,31 @@
+<section>
+  <h1>{{ data.ticker.toUpperCase() }}</h1>
+
+  <hr>
+
+  <form class="example-form" [formGroup]="priceForm">
+    <mat-form-field>
+      <input matInput placeholder="Current Price" formControlName="price">
+    </mat-form-field>
+  </form>
+
+  <div>{{ earnings }}</div>
+
+  <hr>
+  <div class="invested">
+    <span>Invested</span>
+    <span>{{ data.invested }}</span>
+  </div>
+  <div class="shares">
+    <span>Shares</span>
+    <span>{{ data.shares }}</span>
+  </div>
+  <div class="average">
+    <span>Average</span>
+    <span>{{ data.average }}</span>
+  </div>
+  <div class="commission">
+    <span>Commission</span>
+    <span>{{ data.commission }}</span>
+  </div>
+</section>

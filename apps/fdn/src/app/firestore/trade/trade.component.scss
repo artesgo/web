@@ -1,0 +1,21 @@
+$padding: 0.2rem;
+button {
+    background: none;
+    border: none;
+
+    &.text {
+        text-align: left;
+        padding-left: $padding;
+        padding-right: $padding;
+    }
+    &.num {
+        text-align: right;
+        padding-left: $padding;
+        padding-right: $padding;
+    }
+}
+
+span {
+    font-size: 0.6rem;
+}
+

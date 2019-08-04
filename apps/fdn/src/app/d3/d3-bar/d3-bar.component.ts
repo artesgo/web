@@ -16,8 +16,6 @@ export class D3BarComponent implements OnInit {
   @Input() height = 300;
   @Input() width = 600;
   @Input() padding = 20;
-
-  // TODO: docker backend for data
   @Input() data = [
     { units: 1.4, label: 'bmw' },
     { units: 2.2, label: 'chrysler' },

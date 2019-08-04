@@ -1,11 +1,10 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FoundationModule } from "artesgo-foundation";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FoundationModule } from 'artesgo-foundation';
 
-import { AppComponent } from "./app.component";
+import { AppComponent } from './app.component';
 import { GithubComponent } from './github/github.component';
 import { AppRoutingModule } from './app.routes';
-import { JavascriptComponent } from './javascript/javascript.component';
 import { TypescriptComponent } from './typescript/typescript.component';
 import { HtmlComponent } from './html/html.component';
 import { CssComponent } from './css/css.component';
@@ -16,47 +15,43 @@ import { FirestoreComponent } from './firestore/firestore.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { D3Component } from './d3/d3.component';
-import { VariableComponent } from './javascript/variable/variable.component';
-import { ControlComponent } from './javascript/control/control.component';
-import { FunctionsComponent } from './javascript/functions/functions.component';
-import { LoopComponent } from './javascript/loop/loop.component';
-import { NavComponent } from './javascript/nav/nav.component';
-import { DatatypeComponent } from './javascript/datatype/datatype.component';
-import { DraggableDirective } from './d3/directives/draggable.directive';
-import { NodeCircleComponent } from './d3/visuals/shared/node-circle.component';
-import { LinkVisualComponent } from './d3/visuals/shared/link-visual.component';
-import { GraphComponent } from './d3/visuals/graph/graph.component';
-import { ZoomableDirective } from './d3/directives/zoomable.directive';
-import { NodeRectComponent } from './d3/visuals/shared/node-bar.component';
-import { BarGraphComponent } from './d3/visuals/bar-graph/bar-graph.component';
-import { D3BarComponent } from './d3/d3-bar/d3-bar.component';
-import { D3NavComponent } from './d3/nav/nav.component';
-import { D3BubbleComponent } from './d3/d3-bubble/d3-bubble.component';
+import { TradeComponent } from './firestore/trade/trade.component';
+import { PortforiaComponent } from './firestore/portforia/portforia.component';
+import { FSNavComponent } from './firestore/nav/nav.component';
+import { TradeAggregateComponent } from './firestore/trade-aggregate/trade-aggregate.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent, GithubComponent, JavascriptComponent, TypescriptComponent, HtmlComponent, CssComponent, AngularComponent, NotFoundComponent, ChessComponent, FirestoreComponent, D3Component, VariableComponent, ControlComponent, FunctionsComponent, LoopComponent, NavComponent, DatatypeComponent,
-    ZoomableDirective,
-    DraggableDirective,
-    NodeCircleComponent,
-    NodeRectComponent,
-    LinkVisualComponent,
-    GraphComponent,
-    BarGraphComponent,
-    D3BarComponent,
-    NavComponent,
-    D3NavComponent,
-    D3BubbleComponent
+    AppComponent,
+    GithubComponent,
+    TypescriptComponent,
+    HtmlComponent,
+    CssComponent,
+    AngularComponent,
+    NotFoundComponent,
+    ChessComponent,
+    FirestoreComponent,
+    FSNavComponent,
+    TradeComponent,
+    PortforiaComponent,
+    TradeAggregateComponent
   ],
   imports: [
     BrowserModule,
     FoundationModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFirestoreModule,
+    BrowserAnimationsModule, // imports firebase/firestore, only needed for database features
+    MaterialModule,
   ],
   providers: [],
+  entryComponents: [TradeAggregateComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

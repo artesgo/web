@@ -13,16 +13,15 @@ export class FirestoreService {
 
   }
 
-  getData(): Observable<any[]> {
-    return this.db.collection('items').snapshotChanges().pipe(map(changes => this.mapPayload(changes)));
+  collection(collection): Observable<any[]> {
+    return this.db.collection(collection).snapshotChanges().pipe(map(changes => this.mapPayload(changes)));
   }
 
-  // get layouts
-  getLayouts(): Observable<any[]> {
-    return this.db.collection('layouts').snapshotChanges().pipe(map(changes => this.mapPayload(changes)));
-  }
-
-  // get pages in layouts
+  /**
+   * Get Specific Page from Layout
+   * @param layout 
+   * @param pageName 
+   */
   getPages(layout, pageName): Observable<any> {
     return this.db.collection('layouts').doc(layout).collection(pageName).snapshotChanges().pipe(map(changes => this.mapPayload(changes)));
   }

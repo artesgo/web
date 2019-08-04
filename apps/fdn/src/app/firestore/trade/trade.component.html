@@ -1,0 +1,19 @@
+<fdn-grid [cols]="6" [columnSizes]="colSizes" class="main" (keydown)="navigate($event)">
+  <!-- column header -->
+  <span fdn-grid-item [col]="1" id="pos">Position<button>+ <span class="accessible">Add Position</span></button></span>
+  <span fdn-grid-item [col]="2" id="tic">Ticker</span>
+  <span fdn-grid-item [col]="3" id="pri">Price</span>
+  <span fdn-grid-item [col]="4" id="sha">Shares</span>
+  <span fdn-grid-item [col]="5" id="dat">Date</span>
+  <span fdn-grid-item [col]="6" id="com">Commission</span>
+
+  <!-- data -->
+  <ng-container *ngFor="let t of trade$?.trades; let row = index;">
+    <button fdn-grid-item [col]="1" aria-describedby="pos" class="pos text">{{ t.type === 'b' ? 'Buy' : 'Sell' }}</button>
+    <button fdn-grid-item [col]="2" aria-describedby="tic" class="tic text" (click)="aggregate(t.ticker)">{{ t.ticker }}</button>
+    <button fdn-grid-item [col]="3" aria-describedby="pri" class="pri num">{{ t.price | number: '1.2-2' }}</button>
+    <button fdn-grid-item [col]="4" aria-describedby="sha" class="sha num">{{ t.shares }}</button>
+    <button fdn-grid-item [col]="5" aria-describedby="dat" class="dat text">{{ t.timestamp | date:'mediumDate' }}</button>
+    <button fdn-grid-item [col]="6" aria-describedby="com" class="com num" *ngIf="t.commission">{{ t.commission }}</button>
+  </ng-container>
+</fdn-grid>

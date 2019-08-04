@@ -4,5 +4,8 @@ export class Layout {
     col: number;
     colspan: number;
     content: string;
-    type: string;
+    type?: string; // default to text content
+    alignment?: number; // default to top left
+    raw: string;
+    id: string;
 }

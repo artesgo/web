@@ -1,0 +1,3 @@
+<fdn-grid [cols]="2" [columnSizes]="[1,1]" class="main">
+    <div *ngFor="let cell of page$" fdn-grid-item [debug]="false" [col]="cell.col" [row]="cell.row">{{ cell.content }}</div>
+</fdn-grid>

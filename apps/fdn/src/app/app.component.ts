@@ -27,6 +27,11 @@ export class AppComponent {
         this.colSizes = [{ value: 200, unit: "px" }, two, three];
       }
       this._open = !this._open;
-      console.log(this.colSizes);
   }
+  
+  skipToMain() {
+    
+  }
+
+
 }
