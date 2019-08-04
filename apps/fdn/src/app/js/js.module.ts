@@ -9,9 +9,11 @@ import { ControlComponent } from './javascript/control/control.component';
 import { FunctionsComponent } from './javascript/functions/functions.component';
 import { LoopComponent } from './javascript/loop/loop.component';
 import { DatatypeComponent } from './javascript/datatype/datatype.component';
+import { BasicComponent } from './javascript/basics/basic.component';
 
 const EXPORTS = [
   NavComponent,
+  BasicComponent,
   JavascriptComponent,
   VariableComponent,
   ControlComponent,

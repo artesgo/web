@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { GithubComponent } from './github/github.component';
 import { AppRoutingModule } from './app.routes';
 import { TypescriptComponent } from './typescript/typescript.component';
-import { HtmlComponent } from './html/html.component';
-import { CssComponent } from './css/css.component';
 import { AngularComponent } from './angular/angular.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ChessComponent } from './chess/chess.component';
@@ -29,8 +27,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     GithubComponent,
     TypescriptComponent,
-    HtmlComponent,
-    CssComponent,
     AngularComponent,
     NotFoundComponent,
     ChessComponent,

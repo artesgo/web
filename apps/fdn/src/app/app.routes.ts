@@ -2,8 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { GithubComponent } from './github/github.component';
 import { TypescriptComponent } from './typescript/typescript.component';
-import { HtmlComponent } from './html/html.component';
-import { CssComponent } from './css/css.component';
 import { AngularComponent } from './angular/angular.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ChessComponent } from './chess/chess.component';
@@ -17,10 +15,9 @@ import { TradeComponent } from './firestore/trade/trade.component';
             { path: '', redirectTo: '/landing', pathMatch: 'full' },
             { path: 'js', loadChildren: './js/js.module#JsModule'},
             { path: 'd3', loadChildren: './d3/d3.module#D3Module'},
+            { path: 'web', loadChildren: './web/web.module#WebModule'},
             { path: 'github', component: GithubComponent },
             { path: 'typescript', component: TypescriptComponent },
-            { path: 'css', component: CssComponent },
-            { path: 'html', component: HtmlComponent },
             { path: 'angular', component: AngularComponent },
             { path: 'chess', component: ChessComponent },
             { path: 'firestore', component: FirestoreComponent, children: [
