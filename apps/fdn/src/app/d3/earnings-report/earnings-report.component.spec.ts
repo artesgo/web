@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { D3NavComponent } from './nav.component';
+import { EarningsReportComponent } from './earnings-report.component';
 
-describe('NavComponent', () => {
-  let component: D3NavComponent;
-  let fixture: ComponentFixture<D3NavComponent>;
+describe('EarningsReportComponent', () => {
+  let component: EarningsReportComponent;
+  let fixture: ComponentFixture<EarningsReportComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ D3NavComponent ]
+      declarations: [ EarningsReportComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(D3NavComponent);
+    fixture = TestBed.createComponent(EarningsReportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

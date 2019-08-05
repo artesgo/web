@@ -1,0 +1,108 @@
+
+<h2>Revenue</h2>
+<p><span>Automotive Sales</span>{{earnings.revenue.automotiveSales}}</p>
+<p><span>Automotive Leasing</span>{{earnings.revenue.automotiveLease}}</p>
+<p><span>Energy and Storage</span>{{earnings.revenue.energyAndStorage}}</p>
+<p><span>Service</span>{{earnings.revenue.servicesAndOther}}</p>
+<hr>
+<p [class.highlight]="hasClass('rev')"><span>Total Revenue</span>{{ earnings.totalRevenue }}</p>
+
+
+<h2>Cost of Revenue</h2>
+<p><span>Automotive Sales</span>{{earnings.costOfRevenue.automotiveSales}}</p>
+<p><span>Automotive Leasing</span>{{earnings.costOfRevenue.automotiveLease}}</p>
+<p><span>Energy and Storage</span>{{earnings.costOfRevenue.energyAndStorage}}</p>
+<p><span>Service</span>{{earnings.costOfRevenue.servicesAndOther}}</p>
+<hr>
+<p [class.highlight]="hasClass('costRev')">
+    <span>Total Cost of Revenue</span>
+    {{ earnings.totalCostOfRevenue }}
+</p>
+
+<hr>
+<p
+    [class.highlight]="hasClass('gross')" 
+    [class.equation]="hasClass('costRev')"
+    (mouseover)="hover(['rev', 'costRev'])">
+    <span>Gross Profit (Rev - Cost of Rev)</span>
+    {{earnings.grossProfit}}
+</p>
+
+<h2>Operating Expenses</h2>
+<p><span>Research</span>{{earnings.operatingExpenses.research}}</p>
+<p><span>Selling, General and Admin</span>{{earnings.operatingExpenses.sga}}</p>
+<p><span>Restructuring</span>{{earnings.operatingExpenses.restructuring}}</p>
+<hr>
+<p [class.highlight]="hasClass('opex')">
+    <span>Total Operating Expenses</span>
+    {{ earnings.totalOpEx }}
+</p>
+
+<hr>
+<p 
+    [class.highlight]="hasClass('incomeop')" 
+    [class.equation]="hasClass('gross')"
+    (mouseover)="hover(['opex', 'gross'])">
+    <span>Income from Operation (Gross - OpEx)</span>
+    {{earnings.incomeFromOperation}}
+</p>
+
+<h2>Miscellaneous</h2>
+<p><span>Interest Income</span>{{earnings.misc.interestIncome}}</p>
+<p><span>Income Expense</span>{{earnings.misc.interestExpense}}</p>
+<p><span>Other</span>{{earnings.misc.other}}</p>
+<hr>
+<p [class.highlight]="hasClass('totalmisc')">
+    <span>Total Misc</span>
+    {{ earnings.totalMisc }}
+</p>
+
+<p 
+    [class.equation]="hasClass('totalmisc')"
+    [class.highlight]="hasClass('incb4taxes')"
+    (mouseover)="hover(['incomeop', 'totalmisc'])">
+    <span>Income before Taxes</span>
+    {{earnings.incomeBeforeTaxes}}
+</p>
+
+
+<p
+    [class.highlight]="hasClass('provision')">
+    <span>Provision for income taxes</span>
+    {{earnings.provision}}
+</p>
+
+<hr>
+
+<p
+    [class.highlight]="hasClass('netincome')"
+    [class.equation]="hasClass('provision')"
+    (mouseover)="hover(['provision', 'incb4taxes'])">
+    <span>Net Income</span>
+    {{earnings.netIncome}}
+</p>
+
+<p
+    [class.highlight]="hasClass('noninterest')">
+    <span>Net Loss to noncontrolling interest</span>
+    {{earnings.netLossNonInterest}}
+</p>
+
+<hr>
+
+<p
+    [class.equation]="hasClass('noninterest')"
+    (mouseover)="hover(['noninterest', 'netincome'])">
+    <span>Net income attributable to common stock</span>
+    {{earnings.netIncomeCommonStock}}
+</p>
+
+<p>
+    <span>Outstanding Shares</span>
+    {{earnings.shares}}
+</p>
+
+<p>
+    <span>Earnings Per Share</span>
+    {{earnings.earningsPerShare | number : '1.2-2'}}
+</p>

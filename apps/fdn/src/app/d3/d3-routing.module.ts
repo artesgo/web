@@ -3,12 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { D3Component } from './d3.component';
 import { D3BarComponent } from './d3-bar/d3-bar.component';
 import { D3BubbleComponent } from './d3-bubble/d3-bubble.component';
+import { EarningsReportComponent } from './earnings-report/earnings-report.component';
 
 const routes: Routes = [
-    { path: '', component: D3Component },
-    { path: 'bubble', component: D3BubbleComponent },
-    { path: 'bar', component: D3BarComponent },
-    { path: 'pie', component: D3BarComponent },
+    { 
+      path: '', component: D3Component, children: [
+        { path: '', component: D3BarComponent },
+        { path: 'bubble', component: D3BubbleComponent },
+        { path: 'earnings', component: EarningsReportComponent },
+      ]
+    }
 ];
 
 @NgModule({

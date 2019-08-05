@@ -4,18 +4,20 @@ import { CommonModule } from '@angular/common';
 import { WebRoutingModule } from './web-routing.module';
 import { HtmlComponent } from './html/html.component';
 import { CssComponent } from './css/css.component';
-import { NavComponent } from './nav/nav.component';
+import { WebComponent } from './web.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     HtmlComponent,
     CssComponent,
-    NavComponent,
+    WebComponent,
   ],
   imports: [
     CommonModule,
-    WebRoutingModule
+    WebRoutingModule,
+    SharedModule,
   ]
 })
 export class WebModule { }

@@ -5,7 +5,6 @@ import { D3RoutingModule } from './d3-routing.module';
 import { D3Component } from './d3.component';
 import { D3BarComponent } from './d3-bar/d3-bar.component';
 import { D3BubbleComponent } from './d3-bubble/d3-bubble.component';
-import { D3NavComponent } from './nav/nav.component';
 
 import { DraggableDirective } from './directives/draggable.directive';
 import { NodeCircleComponent } from './visuals/shared/node-circle.component';
@@ -14,13 +13,15 @@ import { GraphComponent } from './visuals/graph/graph.component';
 import { ZoomableDirective } from './directives/zoomable.directive';
 import { NodeRectComponent } from './visuals/shared/node-bar.component';
 import { BarGraphComponent } from './visuals/bar-graph/bar-graph.component';
+import { SharedModule } from '../shared/shared.module';
+import { EarningsReportComponent } from './earnings-report/earnings-report.component';
 
 @NgModule({
   declarations: [
     D3Component,
     D3BarComponent,
     D3BubbleComponent,
-    D3NavComponent,
+    EarningsReportComponent,
 
     ZoomableDirective,
     DraggableDirective,
@@ -32,7 +33,8 @@ import { BarGraphComponent } from './visuals/bar-graph/bar-graph.component';
   ],
   imports: [
     CommonModule,
-    D3RoutingModule
+    D3RoutingModule,
+    SharedModule,
   ]
 })
 export class D3Module { }

@@ -21,6 +21,7 @@ import { TradeAggregateComponent } from './firestore/trade-aggregate/trade-aggre
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FSNavComponent,
     TradeComponent,
     PortforiaComponent,
-    TradeAggregateComponent
+    TradeAggregateComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +46,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFirestoreModule,
     BrowserAnimationsModule, // imports firebase/firestore, only needed for database features
     MaterialModule,
+    SharedModule,
   ],
   providers: [],
   entryComponents: [TradeAggregateComponent],
