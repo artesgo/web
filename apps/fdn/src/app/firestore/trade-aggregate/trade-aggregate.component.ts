@@ -18,7 +18,7 @@ export interface DialogData {
 export class TradeAggregateComponent implements OnInit {
   priceCtrl: FormControl;
   priceForm: FormGroup;
-  earnings: number = 0;
+  earnings = 0;
 
   constructor(
     private fb: FormBuilder,

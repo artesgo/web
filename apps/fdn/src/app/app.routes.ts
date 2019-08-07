@@ -5,9 +5,6 @@ import { TypescriptComponent } from './typescript/typescript.component';
 import { AngularComponent } from './angular/angular.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ChessComponent } from './chess/chess.component';
-import { FirestoreComponent } from './firestore/firestore.component';
-import { PortforiaComponent } from './firestore/portforia/portforia.component';
-import { TradeComponent } from './firestore/trade/trade.component';
 
 @NgModule({
     imports: [
@@ -16,15 +13,11 @@ import { TradeComponent } from './firestore/trade/trade.component';
             { path: 'js', loadChildren: './js/js.module#JsModule'},
             { path: 'd3', loadChildren: './d3/d3.module#D3Module'},
             { path: 'web', loadChildren: './web/web.module#WebModule'},
+            { path: 'firestore', loadChildren: './firestore/firestore.module#FirestoreModule'},
             { path: 'github', component: GithubComponent },
             { path: 'typescript', component: TypescriptComponent },
             { path: 'angular', component: AngularComponent },
             { path: 'chess', component: ChessComponent },
-            { path: 'firestore', component: FirestoreComponent, children: [
-                { path: '', component: TradeComponent },
-                { path: 'portforia', component: PortforiaComponent },
-                { path: 'trades', component: TradeComponent },
-            ]},
             { path: '**', component: NotFoundComponent }
         ])
     ],

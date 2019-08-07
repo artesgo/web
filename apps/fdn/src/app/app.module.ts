@@ -9,14 +9,9 @@ import { TypescriptComponent } from './typescript/typescript.component';
 import { AngularComponent } from './angular/angular.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ChessComponent } from './chess/chess.component';
-import { FirestoreComponent } from './firestore/firestore.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { TradeComponent } from './firestore/trade/trade.component';
-import { PortforiaComponent } from './firestore/portforia/portforia.component';
-import { FSNavComponent } from './firestore/nav/nav.component';
-import { TradeAggregateComponent } from './firestore/trade-aggregate/trade-aggregate.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
@@ -31,11 +26,6 @@ import { SharedModule } from './shared/shared.module';
     AngularComponent,
     NotFoundComponent,
     ChessComponent,
-    FirestoreComponent,
-    FSNavComponent,
-    TradeComponent,
-    PortforiaComponent,
-    TradeAggregateComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +39,6 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
   ],
   providers: [],
-  entryComponents: [TradeAggregateComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
