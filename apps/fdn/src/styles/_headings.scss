@@ -1,0 +1,21 @@
+$levels: (1, 2, 3, 4, 5, 6);
+
+// for loop
+@each $level in $levels {
+    h#{$level} {
+        font-weight: 300;
+        margin-top: (-($level - 7)) * 4px;
+        margin-bottom: (-($level - 7)) * 2px;
+        @include mobile {
+            margin-top: (-($level - 7)) * 3px;
+            margin-bottom: (-($level - 7)) * 1px;
+        }
+    }
+}
+
+h1 {
+    @include page-padding;
+    outline: none;
+}
+
+@debug 4px * 6px;

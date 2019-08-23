@@ -26,7 +26,9 @@
             "styles": ["apps/fdn/src/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "apps/fdn/src/styles"
+                "apps/fdn/src/styles",
+                "apps/fdn/src/styles/_media",
+                "apps/fdn/src/styles/_mixins"
               ]
             },
             "scripts": [],

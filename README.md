@@ -12,8 +12,8 @@ This builds the publishable package for our lib
 
 ## App Deployment: Firebase deploy
 
-cd into /dist/apps
+`cd /dist/apps`
 
 you should see firebase files
 
-firebase deploy
+`firebase deploy`

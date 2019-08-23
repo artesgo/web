@@ -9,15 +9,15 @@ import { ChessComponent } from './chess/chess.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
-            { path: '', redirectTo: '/landing', pathMatch: 'full' },
+            { path: '', redirectTo: '/trading', pathMatch: 'full' },
             { path: 'js', loadChildren: './js/js.module#JsModule'},
             { path: 'd3', loadChildren: './d3/d3.module#D3Module'},
             { path: 'web', loadChildren: './web/web.module#WebModule'},
-            { path: 'firestore', loadChildren: './firestore/firestore.module#FirestoreModule'},
+            { path: 'trading', loadChildren: './firestore/firestore.module#FirestoreModule'},
             { path: 'github', component: GithubComponent },
             { path: 'typescript', component: TypescriptComponent },
             { path: 'angular', component: AngularComponent },
-            { path: 'chess', component: ChessComponent },
+            { path: 'chess', component: ChessComponent, data: { title: 'Chess'} },
             { path: '**', component: NotFoundComponent }
         ])
     ],

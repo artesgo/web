@@ -26,9 +26,7 @@ $fdn-theme: mat-light-theme($fdn-primary, $fdn-accent, $fdn-warn);
 // that you are using.
 @include angular-material-theme($fdn-theme);
 
-@import './styles/link';
-@import './styles/list';
-@import './styles/media';
+@import './styles/aggregate';
 
 /* You can add global styles to this file, and also import other style files */
 * {
@@ -38,16 +36,7 @@ $fdn-theme: mat-light-theme($fdn-primary, $fdn-accent, $fdn-warn);
 }
 
 body {
-    border: 1px solid black;
     min-height: 100vh;
-}
-
-h1 {
-    font-weight: 300;
-}
-
-h2 {
-    margin: 2rem 0 1rem;
 }
 
 section {
@@ -55,11 +44,7 @@ section {
 }
 
 main {
-    padding: 0 2rem 4rem 2rem;
-
-    @include mobile {
-        padding: 0 1rem 2rem 1rem;
-    }
+    @include page-padding;
 }
 
 svg {
@@ -84,5 +69,7 @@ code {
     padding: 0;
     position: absolute;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+    margin: 0;
+}
