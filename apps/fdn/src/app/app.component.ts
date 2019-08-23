@@ -1,37 +1,30 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import { trigger, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: "fdn-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  styleUrls: ["./app.component.scss"],
+  animations: [
+    trigger('nav', [
+      transition('false => true', [
+        style({ width: 2 }),
+        animate('300ms', style({ width: 6 }))
+      ]),
+      transition('true => false', [
+        style({ width: 6 }),
+        animate('300ms', style({ width: 2 }))
+      ])
+    ]),
+  ]
 })
 export class AppComponent {
   page = "Git"
-  _open = true;
-  constructor() {
-    // listen to browser resize
-  }
+  showSkip = false;
+  navOpen = false;
+  @ViewChild('title') title: ElementRef;
 
-  colSizes = [
-    { value: 200, unit: "px" },
-    { value: 4, unit: "fr" },
-    { value: 2, unit: "fr" },
-  ]
-
-  toggleSide() {
-      const [one, two, three] = this.colSizes;
-      this.colSizes = [];
-      if (this._open) {
-        this.colSizes = [{ value: 10, unit: "px" }, two, three];
-      } else {
-        this.colSizes = [{ value: 200, unit: "px" }, two, three];
-      }
-      this._open = !this._open;
-  }
-  
   skipToMain() {
-    
+    this.title.nativeElement.focus();
   }
-
-
 }

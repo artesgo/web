@@ -9,7 +9,9 @@ import { TradeComponent } from './trade/trade.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { FoundationModule } from 'artesgo-foundation';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TradeAdderComponent } from './trade-adder/trade-adder.component';
+import { TradeDeleteComponent } from './trade-delete/trade-delete.component';
 
 @NgModule({
   declarations: [
@@ -17,15 +19,22 @@ import { ReactiveFormsModule } from '@angular/forms';
     PortforiaComponent,
     TradeComponent,
     TradeAggregateComponent,
+    TradeAdderComponent,
+    TradeDeleteComponent,
   ],
   imports: [
     CommonModule,
     FirestoreRoutingModule,
+    FormsModule,
     SharedModule,
     MaterialModule,
     FoundationModule,
     ReactiveFormsModule,
   ],
-  entryComponents: [TradeAggregateComponent],
+  entryComponents: [
+    TradeAdderComponent,
+    TradeDeleteComponent,
+    TradeAggregateComponent,
+  ],
 })
 export class FirestoreModule { }

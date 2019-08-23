@@ -4,29 +4,29 @@
   <p>When you are getting ready to go outside, you have a lot of decisions to make before you can go.</p>
 </section>
 
-<p>Do you have your pants on?</p>
-
 <p>Do you have your shoes on?</p>
 
+<p>Do you have your pants on?</p>
+
 <ul class="code">
-  <li><code>if (shoes are on) {{ '{' }}</code></li>
+  <li><code>if (areShoesOn) {{ '{' }}</code></li>
   <li><pre><code>    goOutside();</code></pre></li>
   <li><code>{{ '}' }}</code></li>
 </ul>
 
-but you only have your shoes on
+but with this, you only check if you have your shoes on. we'd need something like this next block:
 
 <ul class="code">
-  <li><code>if (shoes are on <strong>AND</strong> pants are on) {{ '{' }}</code></li>
+  <li><code>if (areShoesOn <strong>AND</strong> arePantsOn) {{ '{' }}</code></li>
   <li><pre><code>    goOutside();</code></pre></li>
   <li><code>{{ '}' }}</code></li>
 </ul>
 
-we can do this with the equality comparitor,
+we can do this with 2 and signs (ampersands),
 
 <ul class="code">
-  <li><code>if (something === somethingElse) {{ '{' }}</code></li>
-  <li><pre><code>    doSomething();</code></pre></li>
+  <li><code>if (areShoesOn <strong>&&</strong> arePantsOn) {{ '{' }}</code></li>
+  <li><pre><code>    goOutside();</code></pre></li>
   <li><code>{{ '}' }}</code></li>
 </ul>
 

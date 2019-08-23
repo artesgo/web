@@ -6,7 +6,7 @@ export interface DialogData {
   shares: number;
   commission: number;
   invested: number;
-  average: number;
+  price: number;
   ticker: string;
 }
 
@@ -29,7 +29,6 @@ export class TradeAggregateComponent implements OnInit {
   ngOnInit() {
     this.priceCtrl = new FormControl();
     // TODO: set value to avg or ngrx stored value for ticker
-    this.priceCtrl.setValue(this.data.average);
     this.priceForm = this.fb.group({
       price: this.priceCtrl
     });
@@ -37,6 +36,11 @@ export class TradeAggregateComponent implements OnInit {
       const amt = this.data.shares * Number.parseFloat(change['price']);
       this.earnings = amt - this.data.invested;
     });
+    if (this.data.shares === 0) {
+      this.data.price = 0;
+      this.earnings = this.data.invested + this.data.commission;
+    }
+    this.priceCtrl.setValue(this.data.price);
   }
 
   round(num) {

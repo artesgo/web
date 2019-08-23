@@ -1,28 +1,43 @@
 $unit: 8px;
 
-.grid-item {
-    padding: 1rem;
-}
-
-.nav-item {
-    padding: 0 $unit * 3;
+nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
 
     a {
-        display: block;
-        margin: 1rem 0;
+        margin: $unit;
     }
 }
 
-header{
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    padding: 1rem;
-    border-bottom-left-radius: 3rem;
-    background: #FC0;
+.button-container {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
 
-    + div {
-        border-bottom: 1px solid black;
-        padding: 1rem;
-        background: #FC0;
+    button {
+        background: none;
+        border: none;
+        height: 24px;
+        margin: 8px;
     }
+
+    .fdn-skip {
+        position: fixed;
+        width: 100%;
+        background: rgba(255, 185, 0, 0.5);
+    }
+}
+
+h1 {
+    outline: none;
+    margin-left: 2rem;
+}
+
+header {
+    display: flex;
+}
+
+main {
+    min-height: 100vh;
 }

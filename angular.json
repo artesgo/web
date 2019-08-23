@@ -24,6 +24,11 @@
             "tsConfig": "apps/fdn/tsconfig.app.json",
             "assets": ["apps/fdn/src/favicon.ico", "apps/fdn/src/assets"],
             "styles": ["apps/fdn/src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/fdn/src/styles"
+              ]
+            },
             "scripts": [],
             "es5BrowserSupport": true
           },

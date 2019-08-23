@@ -1,3 +1,5 @@
+@import '_media';
+
 $padding: 0.2rem;
 button {
     background: none;
@@ -15,7 +17,62 @@ button {
     }
 }
 
+button, label {
+    padding: 0;
+    width: 100%;
+    margin: 2px 0;
+}
+
+input[type='checkbox'] {
+    padding: 0;
+    margin: 0;
+}
+
+.col {
+    border-left: 1px solid #888;
+
+    &-end {
+        border-right: 1px solid #888;
+    }
+    
+    &-start {
+        border-left: 1px solid #888;
+    }
+}
+
+
+label.con {
+    width: 100%;
+    font-size: 11px;
+    text-align: center;
+    display: block;
+}
+
 span {
     font-size: 0.6rem;
 }
 
+.row {
+    border-bottom: 1px solid black;
+}
+
+.flex {
+    @include desktop {
+        display: flex;
+    }
+    &-child {
+        margin: 0 2px;
+
+        @include desktop {
+            width: 50%;
+        }
+    }
+}
+
+input[type="text"] {
+    border: none;
+    background: #BBB;
+    padding-left: 0.25rem;
+    box-sizing: border-box;
+    width: 100%;
+}

@@ -1,19 +1,109 @@
-<fdn-grid [cols]="6" [columnSizes]="colSizes" class="main" (keydown)="navigate($event)">
-  <!-- column header -->
-  <span fdn-grid-item [col]="1" id="pos">Position<button>+ <span class="accessible">Add Position</span></button></span>
-  <span fdn-grid-item [col]="2" id="tic">Ticker</span>
-  <span fdn-grid-item [col]="3" id="pri">Price</span>
-  <span fdn-grid-item [col]="4" id="sha">Shares</span>
-  <span fdn-grid-item [col]="5" id="dat">Date</span>
-  <span fdn-grid-item [col]="6" id="com">Commission</span>
-
-  <!-- data -->
-  <ng-container *ngFor="let t of trade$?.trades; let row = index;">
-    <button fdn-grid-item [col]="1" aria-describedby="pos" class="pos text">{{ t.type === 'b' ? 'Buy' : 'Sell' }}</button>
-    <button fdn-grid-item [col]="2" aria-describedby="tic" class="tic text" (click)="aggregate(t.ticker)">{{ t.ticker }}</button>
-    <button fdn-grid-item [col]="3" aria-describedby="pri" class="pri num">{{ t.price | number: '1.2-2' }}</button>
-    <button fdn-grid-item [col]="4" aria-describedby="sha" class="sha num">{{ t.shares }}</button>
-    <button fdn-grid-item [col]="5" aria-describedby="dat" class="dat text">{{ t.timestamp | date:'mediumDate' }}</button>
-    <button fdn-grid-item [col]="6" aria-describedby="com" class="com num" *ngIf="t.commission">{{ t.commission }}</button>
-  </ng-container>
-</fdn-grid>
+<div class="flex">
+  <div class="flex-child">
+    <h2>All Positions</h2>
+    <fdn-grid [cols]="4" [columnSizes]="colSizes" class="main" (keydown)="navigate($event)">
+      <!-- column header -->
+      <div fdn-grid-item [col]="1" class="row">
+        <div id="tic">Ticker</div>
+        <div id="inv">Invested</div>
+      </div>
+      <div fdn-grid-item [col]="2" class="row">
+        <div id="pri">Price</div>
+        <div id="sha">Shares</div>
+      </div>
+      <div fdn-grid-item [col]="3" class="row">
+        <div id="dat">Date</div>
+        <div id="com">Commission</div>
+      </div>
+      <div fdn-grid-item [col]="4" class="row">
+        <button (click)="add()" class="col">add<span class="accessible"> Position</span></button>
+        <button *ngIf="consolidation.length > 1"
+          (click)="consolidate(consolidating, consolidation)" class="col">consolidate<span class="accessible"> position</span></button>
+      </div>
+    
+      <!-- data -->
+      <ng-container *ngFor="let t of trades; let row = index; trackBy: trackByFn">
+        <div fdn-grid-item [col]="1" class="row col-start">
+          <button aria-describedby="tic" class="tic text"
+            (keypress.ArrowDown)="navigate()">{{ t.ticker }}</button>
+          <button aria-describedby="inv" class="tic text">{{ t.price * t.shares | number: '1.2-2' }}</button>
+        </div>  
+        <div fdn-grid-item [col]="2" class="row">
+          <button aria-describedby="pri" class="col pri num">{{ t.price | number: '1.2-2' }}</button>
+          <button aria-describedby="sha" class="col sha num">{{ t.shares }}</button>
+        </div>
+        <div fdn-grid-item [col]="3" class="row">
+          <button aria-describedby="dat" class="col dat num">{{ t.timestamp | date:'shortDate' }}</button>
+          <button aria-describedby="com" class="col com num" *ngIf="t.commission">{{ t.commission }}</button>
+        </div>
+        <div fdn-grid-item [col]="4" class="row col-end">
+          <button class="col" (click)="delete(t)">delete</button>
+          <label class="col con">
+            <input type="checkbox" (change)="addConsolidation($event, t)">
+            <span class="col accessible">select to </span>consolidate
+          </label>
+        </div>
+      </ng-container>
+    </fdn-grid>
+  </div>
+  
+  <div class="flex-child">
+    <h2>Consolidated</h2>
+    <fdn-grid [cols]="4" [columnSizes]="colSizes">
+      <div fdn-grid-item [col]="1" class="row" id="tic">
+        <div id="tic">Ticker</div>
+        <div id="cur">Current</div>
+      </div>
+      <div fdn-grid-item [col]="2" class="row">
+        <div id="inv">Invested</div>
+        <div id="pri">Average</div>
+      </div>
+      <div fdn-grid-item [col]="3" class="row">
+          <div id="sha">Shares</div>
+          <div id="gl">Gain/Loss</div>
+      </div>
+      <div fdn-grid-item [col]="4" class="row">
+        <div id="com">Commission</div>
+      </div>
+    
+      <ng-container *ngFor="let t of aggregated; let row = index;">
+        <div fdn-grid-item [col]="1" class="row col-start">
+          <button aria-describedby="tic" class="tic text">{{ t.ticker }}</button>
+          <div *ngIf="t.invested > 0"><input type="text" class="current" [(ngModel)]="t.current"></div>
+        </div>
+        <div fdn-grid-item [col]="2" class="row">
+          <ng-container *ngIf="t.invested > 0; else notInvested">
+            <button aria-describedby="inv" class="col inv num">
+              {{ t.invested | number: '1.2-2' }}
+            </button>
+            <button aria-describedby="pri" class="col pri num">
+              {{ t.price | number: '1.2-2' }}
+            </button>
+          </ng-container>
+          <ng-template #notInvested>
+            <button aria-describedby="inv" class="col inv num">
+              -
+            </button>
+            <button aria-describedby="pri" class="col pri num">
+              -
+            </button>
+          </ng-template>
+        </div>
+        <div fdn-grid-item [col]="3" class="row">
+          <button aria-describedby="sha" class="col sha num">{{ t.shares }}</button>
+          <button aria-describedby="gl" class="col gl num">
+            <ng-container *ngIf="t.invested > 0; else notInvestedGains">
+              {{ round((t.current - t.price) * t.shares) }}
+            </ng-container>
+            <ng-template #notInvestedGains>
+              {{ -(t.invested) }}
+            </ng-template>
+          </button>
+        </div>
+        <div fdn-grid-item [col]="4" class="row col-end">
+          <button aria-describedby="com" class="col com num" *ngIf="t.commission">{{ t.commission }}</button>
+        </div>
+      </ng-container>
+    </fdn-grid>
+  </div>
+</div>

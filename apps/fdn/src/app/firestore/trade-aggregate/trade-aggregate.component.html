@@ -3,18 +3,24 @@
 
   <hr>
 
-  <form class="example-form" [formGroup]="priceForm">
+  <form class="example-form" [formGroup]="priceForm" *ngIf="data.invested > 0">
     <mat-form-field>
       <input matInput placeholder="Current Price" formControlName="price">
     </mat-form-field>
   </form>
 
-  <div>{{ earnings }}</div>
+  <div>
+    <span>Gain/Loss</span>
+    <span>{{ earnings | number: '1.2-2' }}</span>
+  </div>
 
   <hr>
   <div class="invested">
     <span>Invested</span>
-    <span>{{ data.invested }}</span>
+    <span *ngIf="data.invested > 0 else noInvested">{{ data.invested }}</span>
+    <ng-template #noInvested>
+      <span>0</span>
+    </ng-template>
   </div>
   <div class="shares">
     <span>Shares</span>
@@ -22,10 +28,16 @@
   </div>
   <div class="average">
     <span>Average</span>
-    <span>{{ data.average }}</span>
+    <span>{{ data.price }}</span>
   </div>
   <div class="commission">
     <span>Commission</span>
     <span>{{ data.commission }}</span>
   </div>
+
+  <hr>
+  <div class="total">
+      <span>Total</span>
+      <span>{{ earnings - data.commission | number: '1.2-2' }}</span>
+    </div>
 </section>

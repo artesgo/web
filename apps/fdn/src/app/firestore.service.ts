@@ -1,16 +1,33 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { Layout } from './firestore/layout';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StoreDocument } from './firestore/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
+  userId: string;
 
   constructor(private db: AngularFirestore) {
 
+  }
+
+  addDocument(collection: string, data: StoreDocument) {
+    const doc: AngularFirestoreDocument = this.db.collection<any>(collection).doc<any>(data.key);
+    return doc.set(data);
+  }
+
+  updateDocument(collection: string, data: StoreDocument) {
+    const doc: AngularFirestoreDocument = this.db.collection<any>(collection).doc<any>(data.key);
+    delete data[data.key];
+    return doc.update(data);
+  }
+
+  deleteDocument(collection: string, data: StoreDocument) {
+    const doc: AngularFirestoreDocument = this.db.collection<any>(collection).doc<any>(data.key);
+    return doc.delete();
   }
 
   collection(collection): Observable<any[]> {
@@ -26,14 +43,11 @@ export class FirestoreService {
     return this.db.collection('layouts').doc(layout).collection(pageName).snapshotChanges().pipe(map(changes => this.mapPayload(changes)));
   }
 
-  addLayout(page: string, data: Layout) {
-    this.db.doc(page).set(data);
-  }
-
   // appends document id to data
   mapPayload(changes) {
     return changes.map(c => {
       return {key: c.payload.doc.id, ...c.payload.doc.data() };
     })
   }
+
 }

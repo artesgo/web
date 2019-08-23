@@ -1,0 +1,21 @@
+<section>
+  <h1>Add A Position</h1>
+
+  <hr>
+
+  <form class="example-form" [formGroup]="trade">
+    <mat-form-field>
+      <input matInput placeholder="Ticker" formControlName="ticker">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Current Price" formControlName="price">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Shares" formControlName="shares">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Commission" formControlName="comm">
+    </mat-form-field>
+    <button (click)="add()">Add</button>
+  </form>
+</section>

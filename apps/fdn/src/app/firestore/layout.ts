@@ -1,4 +1,7 @@
-export class Layout {
+import { StoreDocument } from './firestore';
+
+export class Layout implements StoreDocument {
+    key: string;
     row: number;
     rowspan: number;
     col: number;

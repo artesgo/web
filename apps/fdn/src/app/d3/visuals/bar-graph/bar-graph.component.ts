@@ -17,7 +17,7 @@ export class BarGraphComponent implements OnInit {
   private _height: number;
   focused
   @Input() nodes: Node[];
-  @Input() rotated: boolean = true;
+  @Input() rotated = true;
   @Input() scale: number;
   @Input()
   get height() { return this._height || 500 }
@@ -30,7 +30,7 @@ export class BarGraphComponent implements OnInit {
   padding = 50;
 
   ngOnInit() {
-    let height = (this.height - this.padding) / this.nodes.length;
+    const height = (this.height - this.padding) / this.nodes.length;
     for (let i = 0; i < this.nodes.length; i++) {
       this.nodes[i].height = height;
       this.nodes[i].y = height * i + (this.padding / 2);

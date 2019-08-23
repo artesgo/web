@@ -28,6 +28,7 @@ $fdn-theme: mat-light-theme($fdn-primary, $fdn-accent, $fdn-warn);
 
 @import './styles/link';
 @import './styles/list';
+@import './styles/media';
 
 /* You can add global styles to this file, and also import other style files */
 * {
@@ -56,6 +57,9 @@ section {
 main {
     padding: 0 2rem 4rem 2rem;
 
+    @include mobile {
+        padding: 0 1rem 2rem 1rem;
+    }
 }
 
 svg {
