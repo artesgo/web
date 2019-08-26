@@ -10,20 +10,18 @@ import { LoopComponent } from './javascript/loop/loop.component';
 import { DatatypeComponent } from './javascript/datatype/datatype.component';
 import { BasicComponent } from './javascript/basics/basic.component';
 import { SharedModule } from '../shared/shared.module';
-
-const EXPORTS = [
-  BasicComponent,
-  JavascriptComponent,
-  VariableComponent,
-  ControlComponent,
-  FunctionsComponent,
-  LoopComponent,
-  DatatypeComponent,
-]
+import { WebPageComponent } from './javascript/web-page/web-page.component';
 
 @NgModule({
   declarations: [
-    ...EXPORTS
+    BasicComponent,
+    JavascriptComponent,
+    VariableComponent,
+    ControlComponent,
+    FunctionsComponent,
+    LoopComponent,
+    DatatypeComponent,
+    WebPageComponent,
   ],
   imports: [
     CommonModule,

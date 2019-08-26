@@ -14,6 +14,7 @@ export class JavascriptComponent implements OnInit {
     { route: '/js/data', label: 'Data Types' },
     { route: '/js/loop', label: 'Loops' },
     { route: '/js/functions', label: 'Functions' },
+    { route: '/js/web', label: 'Web Page' },
   ]
 
   constructor() { }

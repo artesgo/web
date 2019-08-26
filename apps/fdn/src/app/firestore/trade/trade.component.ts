@@ -31,6 +31,7 @@ export class TradeComponent implements OnInit {
   @ViewChildren('.sha') sha: ElementRef[];
   @ViewChildren('.dat') dat: ElementRef[];
   @ViewChildren('.com') com: ElementRef[];
+  user: firebase.User;
 
   constructor(private ts: TradeService, private dialog: MatDialog) { }
 

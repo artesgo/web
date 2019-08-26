@@ -1,7 +1,17 @@
-@mixin page-padding() {
-    padding: 0 3rem 0 3rem;
+$page-padding-map: ("desktop": 3rem, "tablet": 2rem, "mobile": 1rem);
+
+@mixin page-padding {
+    padding: 0 map-get($page-padding-map, "desktop") 0 map-get($page-padding-map, "desktop");
 
     @include mobile {
-        padding: 0 1rem 0 1rem;
+        padding: 0 map-get($page-padding-map, "mobile") 0 map-get($page-padding-map, "mobile");
+    }
+}
+
+@mixin page-right {
+    right: map-get($page-padding-map, "desktop");
+
+    @include mobile {
+        right: map-get($page-padding-map, "mobile");
     }
 }

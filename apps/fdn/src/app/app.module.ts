@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
     AngularComponent,
     NotFoundComponent,
     ChessComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,9 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SigninComponent
+  ]
 })
 export class AppModule {}

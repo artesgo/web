@@ -1,0 +1,22 @@
+<ng-template #action>
+  <ng-container *ngIf="data.user">Signout</ng-container>
+  <ng-container *ngIf="data.signin">Login</ng-container>
+  <ng-container *ngIf="data.signup">Signup</ng-container>
+</ng-template>
+
+<section>
+  <h1><ng-container *ngTemplateOutlet="action"></ng-container></h1>
+  <form class="login-form" [formGroup]="login">
+    <ng-container *ngIf="!data.user">
+      <mat-form-field>
+        <input matInput placeholder="email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="password" type="password" formControlName="password">
+      </mat-form-field>
+    </ng-container>
+    <button (click)="signin()">
+      <ng-container *ngTemplateOutlet="action"></ng-container>
+    </button>
+  </form>
+</section>

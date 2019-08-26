@@ -7,7 +7,7 @@
     (click)="skipToMain()">
     Skip to Main Content
   </button>
-  <button (click)="navOpen = !navOpen" [attr.aria-expanded]="navOpen">
+  <button class="fdn-nav" (click)="navOpen = !navOpen" [attr.aria-expanded]="navOpen">
     <svg width="24px" height="24px">
       <rect
         x="0"
@@ -26,6 +26,15 @@
     </svg>
     <span class="accessible">navigation</span>
   </button>
+  <div class="fdn-login">
+    <div class="fdn-sessionless" *ngIf="!user">
+      <button (click)="signin()">Login</button>
+      <button (click)="signup()">Signup</button>
+    </div>
+    <div class="fdn-session" *ngIf="user">
+      <button (click)="signout()">{{ user.displayName ? user.displayName : user.email }}</button>
+    </div>
+  </div>
 </div>
 <mat-drawer-container class="example-container">
   <mat-drawer mode="side" [opened]="navOpen">
@@ -42,7 +51,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <header>
-      <h1 #title tabindex="-1">{{ page }}</h1>
+      <h1 class="page-header" #title tabindex="-1">{{ page }}</h1>
     </header>
     <main>
       <router-outlet></router-outlet>

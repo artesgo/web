@@ -7,6 +7,7 @@ import { LoopComponent } from './javascript/loop/loop.component';
 import { DatatypeComponent } from './javascript/datatype/datatype.component'
 import { ControlComponent } from './javascript/control/control.component';
 import { BasicComponent } from './javascript/basics/basic.component';
+import { WebPageComponent } from './javascript/web-page/web-page.component';
 
 const routes: Routes = [
   { 
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'functions', component: FunctionsComponent },
       { path: 'loop', component: LoopComponent },
       { path: 'data', component: DatatypeComponent },
+      { path: 'web', component: WebPageComponent },
     ]
   }
 ];

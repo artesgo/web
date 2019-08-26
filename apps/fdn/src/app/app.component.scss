@@ -1,4 +1,5 @@
 @import '_media';
+@import '_mixins';
 
 $unit: 8px;
 
@@ -27,15 +28,27 @@ nav {
         margin: 8px;
     }
 
+    .fdn-nav {
+        position: absolute;
+        background: rgba(255, 185, 0, 0.5);
+    }
+
     .fdn-skip {
         position: fixed;
         width: 100%;
         background: rgba(255, 185, 0, 0.5);
     }
+
+    .fdn-login {
+        position: absolute;
+        background: rgba(255, 185, 0, 0.5);
+        @include page-right;
+    }
 }
 
 header {
     display: flex;
+    margin-top: 2rem;
 }
 
 main {
