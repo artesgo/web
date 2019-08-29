@@ -12,13 +12,13 @@ import { WebPageComponent } from './javascript/web-page/web-page.component';
 const routes: Routes = [
   { 
     path: '', component: JavascriptComponent, children: [
-      { path: '', component: BasicComponent },
-      { path: 'variable', component: VariableComponent },
-      { path: 'control', component: ControlComponent },
-      { path: 'functions', component: FunctionsComponent },
-      { path: 'loop', component: LoopComponent },
-      { path: 'data', component: DatatypeComponent },
-      { path: 'web', component: WebPageComponent },
+      { path: '', component: BasicComponent, data: { title: 'Javascript' } },
+      { path: 'variable', component: VariableComponent, data: { title: 'Variables' } },
+      { path: 'control', component: ControlComponent, data: { title: 'Control Structures' } },
+      { path: 'functions', component: FunctionsComponent, data: { title: 'Functions' } },
+      { path: 'loop', component: LoopComponent, data: { title: 'Loops' } },
+      { path: 'data', component: DatatypeComponent, data: { title: 'Data Types' } },
+      { path: 'web', component: WebPageComponent, data: { title: 'Website' } },
     ]
   }
 ];

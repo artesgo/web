@@ -1,17 +1,17 @@
-$page-padding-map: ("desktop": 3rem, "tablet": 2rem, "mobile": 1rem);
+$pad-map: ("desktop": 3rem, "tablet": 2rem, "mobile": 1rem);
 
 @mixin page-padding {
-    padding: 0 map-get($page-padding-map, "desktop") 0 map-get($page-padding-map, "desktop");
+    padding: 0 map-get($pad-map, "desktop") 0 map-get($pad-map, "desktop");
 
     @include mobile {
-        padding: 0 map-get($page-padding-map, "mobile") 0 map-get($page-padding-map, "mobile");
+        padding: 0 map-get($pad-map, "mobile") 0 map-get($pad-map, "mobile");
     }
 }
 
 @mixin page-right {
-    right: map-get($page-padding-map, "desktop");
+    right: map-get($pad-map, "desktop");
 
     @include mobile {
-        right: map-get($page-padding-map, "mobile");
+        right: map-get($pad-map, "mobile");
     }
 }

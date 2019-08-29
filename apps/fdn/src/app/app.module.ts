@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FoundationModule } from 'artesgo-foundation';
 
 import { AppComponent } from './app.component';
 import { GithubComponent } from './github/github.component';
@@ -19,6 +18,8 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { SigninComponent } from './signin/signin.component';
+import { FoundationModule } from '@fdn/foundation';
+// import { FoundationModule } from 'artesgo-foundation';
 
 @NgModule({
   declarations: [

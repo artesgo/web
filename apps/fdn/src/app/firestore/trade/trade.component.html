@@ -38,8 +38,10 @@
         </div>
         <div fdn-grid-item [col]="4" class="row col-end">
           <button class="col" (click)="delete(t)">delete</button>
-          <label class="col con">
-            <input type="checkbox" (change)="addConsolidation($event, t)">
+          <!-- show if consolidation list is 0 -->
+          <!-- or if consolidating ticker == t.ticker -->
+          <label class="col con" *ngIf="consolidation.length === 0 || consolidating === t.ticker">
+            <input type="checkbox" (change)="consolidate($event, t)">
             <span class="col accessible">select to </span>consolidate
           </label>
         </div>
@@ -69,7 +71,9 @@
       <ng-container *ngFor="let t of aggregated; let row = index;">
         <div fdn-grid-item [col]="1" class="row col-start">
           <button aria-describedby="tic" class="tic text">{{ t.ticker }}</button>
-          <div *ngIf="t.invested > 0"><input type="text" class="current" [(ngModel)]="t.current"></div>
+          <div *ngIf="t.invested > 0">
+            <input aria-describedby="cur" type="text" class="current" [(ngModel)]="t.current" (change)="updateLocalstorage(t)">
+          </div>
         </div>
         <div fdn-grid-item [col]="2" class="row">
           <ng-container *ngIf="t.invested > 0; else notInvested">

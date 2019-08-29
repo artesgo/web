@@ -7,8 +7,8 @@ import { WebComponent } from './web.component';
 const routes: Routes = [
   {
     path: '', component: WebComponent, children: [
-      { path: '', component: HtmlComponent },
-      { path: 'css', component: CssComponent },
+      { path: '', component: HtmlComponent, data: { title: 'HTML' }  },
+      { path: 'css', component: CssComponent, data: { title: 'CSS' }  },
     ]
   }
 ];

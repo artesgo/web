@@ -16,7 +16,10 @@ nav {
 .button-container {
     position: fixed;
     z-index: 10;
+    background: #333;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
     @include mobile {
         position: relative;
     }
@@ -29,26 +32,26 @@ nav {
     }
 
     .fdn-nav {
-        position: absolute;
-        background: rgba(255, 185, 0, 0.5);
+        background: #FC0;
     }
 
     .fdn-skip {
         position: fixed;
         width: 100%;
-        background: rgba(255, 185, 0, 0.5);
+        background: #FC0;
     }
 
     .fdn-login {
-        position: absolute;
-        background: rgba(255, 185, 0, 0.5);
-        @include page-right;
+        position: relative;
+        background: #FC0;
     }
 }
 
 header {
     display: flex;
-    margin-top: 2rem;
+    @include desktop {
+        margin-top: 2rem;
+    }
 }
 
 main {

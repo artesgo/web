@@ -7,8 +7,8 @@ import { PortforiaComponent } from './portforia/portforia.component';
 const routes: Routes = [
   { 
     path: '', component: FirestoreComponent, children: [
-      { path: '', component: TradeComponent },
-      { path: 'portforia', component: PortforiaComponent },
+      { path: '', component: TradeComponent, data: { title: 'Trade Tracker'} },
+      { path: 'portforia', component: PortforiaComponent, data: { title: 'Page Builder'} },
     ]
   }
 ];

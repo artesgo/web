@@ -3,6 +3,8 @@ import { trigger, style, transition, animate } from '@angular/animations';
 import { SigninComponent } from './signin/signin.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from './services/authentication.service';
+import { RouterEvent, Router, RouterState, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: "fdn-root",
@@ -28,8 +30,32 @@ export class AppComponent implements OnInit {
   navOpen = false;
   @ViewChild('title') title: ElementRef;
 
-  constructor(private dialog: MatDialog, private auth: AuthenticationService) {
+  constructor(private dialog: MatDialog,
+    private auth: AuthenticationService,
+    private activatedRoute: ActivatedRoute,
+    private router:Router
+  ) {
     // TODO: Ngrx store for user
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => {
+        let child = this.activatedRoute.firstChild;
+          while (child) {
+            if (child.firstChild) {
+              child = child.firstChild;
+            } else if (child.snapshot.data && child.snapshot.data['title']) {
+              return child.snapshot.data['title'];
+            } else {
+              return null;
+            }
+          }
+          return null;
+      })
+    ).subscribe(event => {
+      console.log(event);
+      this.page = event
+      
+    })
   }
 
   ngOnInit() {

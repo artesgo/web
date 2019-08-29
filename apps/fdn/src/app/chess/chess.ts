@@ -33,15 +33,19 @@ export class Chess {
         const _cells = [];
         if (piece) {
             if (piece.finite) {
-                for (let m of piece.moves) {
-                    const [_x, _y] = m;
+                for (let _m of piece.moves) {
+                    const [_x, _y] = _m;
                     // check if out of bound
                     if (Chess.inRange(_x + piece.row, 1, 8) && Chess.inRange(_y + piece.col, 1, 8)) {
                         const move = [_x + piece.row, _y + piece.col];
                         let [x, y] = move;
                         let found = cells.find(cell => cell.row === x && cell.col === y && !!cell.piece);
                         if (!found || found.piece.black !== piece.black) {
-                            _cells.push(move);
+                            if (piece.name === "pawn") {
+                                _cells.push(move);
+                            } else {
+                                _cells.push(move);
+                            }
                         }
                     }
                 }

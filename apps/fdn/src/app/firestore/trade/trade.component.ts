@@ -16,7 +16,7 @@ export class TradeComponent implements OnInit {
   trades: TradeDocument[];
   aggregated: TradeAggregate[] = [];
   consolidation: TradeDocument[] = [];
-  consolidating = '';
+  consolidating = null;
   title = 0;
   colSizes = [
     { value: 1, unit: "fr" },
@@ -42,6 +42,7 @@ export class TradeComponent implements OnInit {
       // layout retrieved as fields in document, which needs to be turned into array
       this.trades = trades;
       for (let t of this.trades) {
+        // should not update local storage data
         this.addToAggregate(t);
       }
     }, (err) => {
@@ -94,6 +95,7 @@ export class TradeComponent implements OnInit {
     dialog.afterClosed().subscribe((trade: TradeDocument) => {
       if (trade) {
         this.ts.addTrade(trade).then(data => {
+          this.updateLocalstorage(trade);
           this.updateAggregate(trade);
         });
       }
@@ -107,17 +109,17 @@ export class TradeComponent implements OnInit {
         t.invested += trade.price * trade.shares;
         t.shares += trade.shares;
         t.price = this.round(t.invested / t.shares);
-        t.current = trade.price;
+        t = this.getLocalPrice(t);
       }
       return t;
-    })
+    });
   }
 
   addToAggregate(trade: TradeDocument) {
     if (this.aggregated.find(t => trade.ticker === t.ticker)) {
       this.updateAggregate(trade);
     } else {
-      const tradeAgg: TradeAggregate = {
+      let tradeAgg: TradeAggregate = {
         ticker: trade.ticker,
         shares: trade.shares,
         price: trade.price,
@@ -125,6 +127,7 @@ export class TradeComponent implements OnInit {
         commission: trade.commission,
         current: trade.price
       }
+      tradeAgg = this.getLocalPrice(tradeAgg);
       this.aggregated.push(tradeAgg);
     }
   }
@@ -158,11 +161,36 @@ export class TradeComponent implements OnInit {
     
   }
 
-  addConsolidation(event: Event, trade: TradeDocument) {
-    console.log(event.target, trade);
+  consolidate(event: Event, trade: TradeDocument) {
+    if (event.target['checked']) {
+      this.addConsolidation(trade);
+    } else {
+      this.removeConsolidation(trade);
+    }
   }
 
-  consolidate(consolidate: TradeDocument[]): TradeDocument {
+  addConsolidation(trade: TradeDocument) {
+    // check consolidation list
+    if (this.consolidation.length > 0) {
+      // already have something in consolidation
+      this.consolidation.push(trade);
+    } else {
+      // removes checkboxes from other tickers
+      this.consolidating = trade.ticker;
+      this.consolidation.push(trade);
+    }
+  }
+
+  removeConsolidation(trade: TradeDocument) {
+    // check consolidation list
+    const index = this.consolidation.indexOf(trade);
+    this.consolidation.splice(index, 1);
+    if (this.consolidation.length === 0) {
+      this.consolidating = null;
+    }
+  }
+
+  updateConsolidatedTradeDocument(consolidate: TradeDocument[]): TradeDocument {
     const [ last ] = consolidate.reverse();
     let consolidated: TradeAggregate;
     consolidated = this.aggregate(last.ticker, consolidate);
@@ -182,5 +210,18 @@ export class TradeComponent implements OnInit {
 
   trackByFn(trade: TradeDocument) {
     return trade.key;
+  }
+
+  getLocalPrice(trade: TradeAggregate): TradeAggregate {
+    const localPrice = Number.parseFloat(localStorage.getItem(trade.ticker));
+    if (localPrice) {
+      trade.current = localPrice;
+    }
+    return trade;
+  }
+
+  updateLocalstorage(trade: TradeDocument | TradeAggregate) {
+    const price = trade['current'] || trade.price;
+    localStorage.setItem(trade.ticker, price.toString());
   }
 }

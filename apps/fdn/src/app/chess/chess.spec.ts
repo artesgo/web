@@ -3,7 +3,7 @@ import { Cell } from './cell';
 import { Chess } from './chess';
 
 
-fdescribe('Chess', () => {
+describe('Chess', () => {
     let chess: Chess;
     let cells: Cell<ChessPiece>[];
     beforeEach(() => {
