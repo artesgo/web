@@ -3,7 +3,7 @@ import { trigger, style, transition, animate } from '@angular/animations';
 import { SigninComponent } from './signin/signin.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from './services/authentication.service';
-import { RouterEvent, Router, RouterState, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
@@ -87,5 +87,9 @@ export class AppComponent implements OnInit {
       width: '250px',
       data: data
     });
+  }
+
+  checkOpened(event) {
+    this.navOpen = event;
   }
 }

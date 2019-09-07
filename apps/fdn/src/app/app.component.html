@@ -40,7 +40,7 @@
   </div>
 </div>
 <mat-drawer-container class="example-container">
-  <mat-drawer mode="side" [opened]="navOpen">
+  <mat-drawer mode="over" [opened]="navOpen" (openedChange)="checkOpened($event)">
     <nav>
       <a href="#" routerLink="/github">Github</a>
       <a href="#" routerLink="/js">Javascript</a>
