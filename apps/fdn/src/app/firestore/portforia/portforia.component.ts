@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FirestoreService } from '../../firestore.service';
-import { StoreDocument } from '../firestore';
-import { switchMap } from 'rxjs/operators';
 import { GridUtils } from '../grid.parser';
 import { Layout } from '../layout';
+import { LayoutService } from './portforia.service';
 
 @Component({
   selector: 'fdn-portforia',
@@ -14,27 +12,27 @@ export class PortforiaComponent implements OnInit {
   layout$: any;
   page$: Layout[] = [];
 
-  constructor(private fb: FirestoreService) { }
+  constructor(private ls: LayoutService) { }
 
   ngOnInit() {
-    this.fb.collection('layouts').pipe(
-      switchMap((items: StoreDocument[]) => {
-        const [page] = items;
-        this.layout$ = items;
-        return this.fb.getPages(page.key, 'pages');
-      })
-    ).subscribe((layouts: StoreDocument[]) => {
-      // layout retrieved as fields in document, which needs to be turned into array
-      this.page$ = [];
-      const [layout] = layouts;
-      Object.keys(layout).map( key => {
-        if (key !== 'key') {
-          this.page$.push(GridUtils.parser(key, layout[key]));
-        }
-      })
-    }, (err) => {
-      this.setData();
-    });
+    // this.fb.collection('layouts').pipe(
+    //   switchMap((items: StoreDocument[]) => {
+    //     const [page] = items;
+    //     this.layout$ = items;
+    //     return this.fb.getPages(page.key, 'pages');
+    //   })
+    // ).subscribe((layouts: StoreDocument[]) => {
+    //   // layout retrieved as fields in document, which needs to be turned into array
+    //   this.page$ = [];
+    //   const [layout] = layouts;
+    //   Object.keys(layout).map( key => {
+    //     if (key !== 'key') {
+    //       this.page$.push(GridUtils.parser(key, layout[key]));
+    //     }
+    //   })
+    // }, (err) => {
+    //   this.setData();
+    // });
   }
 
   setData() {

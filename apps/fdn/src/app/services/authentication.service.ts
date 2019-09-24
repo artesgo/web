@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, of, from } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ export class AuthenticationService {
     this.user = angularFireAuth.authState;
   }
   /* Sign up */
-  signUp(email: string, password: string) {
+  signUp(email: string, password: string): Observable<any> {
     return from(this.angularFireAuth.auth
       .createUserWithEmailAndPassword(email, password));
   }

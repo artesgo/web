@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationFacade } from '../services/authentication.facade';
 
 interface DialogData {
   signin: boolean;
@@ -22,13 +22,12 @@ export class SigninComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SigninComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private auth: AuthenticationService
+    private auth: AuthenticationFacade,
   ) {
     this.login = fb.group({
       email: this.email,
       password: this.password,
     });
-
   }
 
   ngOnInit() {
@@ -38,11 +37,11 @@ export class SigninComponent implements OnInit {
     const email = this.login.get('email').value;
     const password = this.login.get('password').value;
     if (this.data.signin) {
-      this.auth.signIn(email, password).subscribe(signin => this.dialogRef.close());
+      this.auth.signIn(email, password);
     } else if (this.data.signup) {
-      this.auth.signUp(email, password).subscribe(signin => this.dialogRef.close());
+      this.auth.signUp(email, password);
     } else {
-      this.auth.signOut().subscribe(signin => this.dialogRef.close());
+      this.auth.signOut();
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StoreDocument } from './firestore/firestore';
 
@@ -8,30 +8,33 @@ import { StoreDocument } from './firestore/firestore';
   providedIn: 'root'
 })
 export class FirestoreService {
-  userId: string;
-
   constructor(private db: AngularFirestore) {
 
   }
 
-  addDocument(collection: string, data: StoreDocument) {
+  protected addDocument(collection: string, data: StoreDocument) {
     const doc: AngularFirestoreDocument = this.db.collection<any>(collection).doc<any>(data.key);
     return doc.set(data);
   }
 
-  updateDocument(collection: string, data: StoreDocument) {
+  protected updateDocument(collection: string, data: StoreDocument) {
     const doc: AngularFirestoreDocument = this.db.collection<any>(collection).doc<any>(data.key);
     delete data[data.key];
-    return doc.update(data);
+    return doc.update({...data});
   }
 
-  deleteDocument(collection: string, data: StoreDocument) {
+  protected deleteDocument(collection: string, data: StoreDocument) {
     const doc: AngularFirestoreDocument = this.db.collection<any>(collection).doc<any>(data.key);
     return doc.delete();
   }
 
-  collection(collection): Observable<any[]> {
-    return this.db.collection(collection).snapshotChanges().pipe(map(changes => this.mapPayload(changes)));
+  collection(collection, user: string): Observable<any[]> {
+    if (user) {
+      return this.db.collection(collection, ref => ref.where('user', '==', user))
+        .snapshotChanges().pipe(map(changes => this.mapPayload(changes)));
+    } else {
+      return of([]);
+    }
   }
 
   /**

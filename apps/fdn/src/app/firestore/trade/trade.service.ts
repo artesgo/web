@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
 import { TradeDocument } from '../trade';
+import { tradeFeature } from './+state/trade.reducer';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TradeService extends FirestoreService {
-    COLLECTION = 'trades';
+    COLLECTION = tradeFeature;
 
-    get() {
-        return this.collection(this.COLLECTION);
+    get(user: firebase.User): Observable<any> {
+        return this.collection(this.COLLECTION, user.uid);
     }
 
     // TODO: insert user id into trade$ object
-    addTrade(trade: TradeDocument) {
+    addTrade(trade: TradeDocument): Observable<any> {
         trade.timestamp = +new Date();
         trade.key = `${trade.timestamp}_${trade.ticker}_${trade.shares}`
-        return this.addDocument(this.COLLECTION, trade);
+        return from(this.addDocument(this.COLLECTION, trade));
     }
 
-    updateTrade(trade: TradeDocument) {
-        return this.updateDocument(this.COLLECTION, trade);
+    updateTrade(trade: TradeDocument): Observable<any> {
+        return from(this.updateDocument(this.COLLECTION, trade));
     }
 
-    deleteTrade(trade: TradeDocument) {
-        return this.deleteDocument(this.COLLECTION, trade);
+    deleteTrade(trade: TradeDocument): Observable<any> {
+        return from(this.deleteDocument(this.COLLECTION, trade));
     }
 }

@@ -2,9 +2,10 @@ import { Component, ViewChild, ElementRef, OnInit } from "@angular/core";
 import { trigger, style, transition, animate } from '@angular/animations';
 import { SigninComponent } from './signin/signin.component';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthenticationService } from './services/authentication.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import { AuthenticationFacade } from './services/authentication.facade';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "fdn-root",
@@ -24,18 +25,18 @@ import { filter, map } from 'rxjs/operators';
   ]
 })
 export class AppComponent implements OnInit {
-  user: firebase.User;
+  user$: Observable<firebase.User>;
   page = "Git"
   showSkip = false;
   navOpen = false;
   @ViewChild('title') title: ElementRef;
 
   constructor(private dialog: MatDialog,
-    private auth: AuthenticationService,
+    private auth: AuthenticationFacade,
     private activatedRoute: ActivatedRoute,
     private router:Router
   ) {
-    // TODO: Ngrx store for user
+    this.user$ = this.auth.user;
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(() => {
@@ -52,14 +53,11 @@ export class AppComponent implements OnInit {
           return null;
       })
     ).subscribe(event => {
-      console.log(event);
       this.page = event
-      
     })
   }
 
   ngOnInit() {
-    this.auth.user.subscribe(user => this.user = user);
   }
 
   skipToMain() {
@@ -76,9 +74,9 @@ export class AppComponent implements OnInit {
       signup: true
     });
   }
-  signout() {
+  signout(user) {
     this.openDialog({
-      user: this.user
+      user
     });
   }
 

@@ -8,8 +8,8 @@ import { Layout } from '../layout';
 export class LayoutService extends FirestoreService {
     COLLECTION = 'layouts';
 
-    get() {
-        return this.collection(this.COLLECTION);
+    get(user: firebase.User) {
+        return this.collection(this.COLLECTION, user.uid);
     }
 
     addLayout(layout: Layout) {

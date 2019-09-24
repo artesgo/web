@@ -20,6 +20,10 @@ import { SharedModule } from './shared/shared.module';
 import { SigninComponent } from './signin/signin.component';
 import { FoundationModule } from '@fdn/foundation';
 // import { FoundationModule } from 'artesgo-foundation';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { appReducer } from './+state/app.reducer';
+import { AppEffects } from './+state/app.effects';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,8 @@ import { FoundationModule } from '@fdn/foundation';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    StoreModule.forRoot({ count: appReducer }),
+    EffectsModule.forRoot([AppEffects]),
     BrowserAnimationsModule, // imports firebase/firestore, only needed for database features
     MaterialModule,
     SharedModule,

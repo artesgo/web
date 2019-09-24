@@ -18,14 +18,17 @@
       <div fdn-grid-item [col]="4" class="row">
         <button (click)="add()" class="col">add<span class="accessible"> Position</span></button>
         <button *ngIf="consolidation.length > 1"
-          (click)="consolidate(consolidating, consolidation)" class="col">consolidate<span class="accessible"> position</span></button>
+          (click)="performConsolidation(consolidation)" class="col">consolidate<span class="accessible"> position</span></button>
       </div>
     
       <!-- data -->
-      <ng-container *ngFor="let t of trades; let row = index; trackBy: trackByFn">
+      <ng-container *ngFor="let t of trades  | tradeFilter: consolidating; let row = index; trackBy: trackByFn">
+        <ng-template #rowMarker><span class="accessible">row {{ row + 1 }}</span></ng-template>
         <div fdn-grid-item [col]="1" class="row col-start">
           <button aria-describedby="tic" class="tic text"
-            (keypress.ArrowDown)="navigate()">{{ t.ticker }}</button>
+            (keypress.ArrowDown)="navigate()">{{ t.ticker }}
+            <ng-container *ngTemplateOutlet="rowMarker"></ng-container>
+          </button>
           <button aria-describedby="inv" class="tic text">{{ t.price * t.shares | number: '1.2-2' }}</button>
         </div>  
         <div fdn-grid-item [col]="2" class="row">
@@ -34,14 +37,14 @@
         </div>
         <div fdn-grid-item [col]="3" class="row">
           <button aria-describedby="dat" class="col dat num">{{ t.timestamp | date:'shortDate' }}</button>
-          <button aria-describedby="com" class="col com num" *ngIf="t.commission">{{ t.commission }}</button>
+          <button aria-describedby="com" class="col com num" *ngIf="t.commission">{{ t.commission | number: '1.2-2' }}</button>
         </div>
         <div fdn-grid-item [col]="4" class="row col-end">
           <button class="col" (click)="delete(t)">delete</button>
           <!-- show if consolidation list is 0 -->
           <!-- or if consolidating ticker == t.ticker -->
-          <label class="col con" *ngIf="consolidation.length === 0 || consolidating === t.ticker">
-            <input type="checkbox" (change)="consolidate($event, t)">
+          <label class="col con" *ngIf="(consolidation.length === 0 || consolidating === t.ticker) && tradeCount(t)">
+            <input type="checkbox" (change)="consolidate($event, t)" [checked]="t.checked">
             <span class="col accessible">select to </span>consolidate
           </label>
         </div>
@@ -72,7 +75,7 @@
         <div fdn-grid-item [col]="1" class="row col-start">
           <button aria-describedby="tic" class="tic text">{{ t.ticker }}</button>
           <div *ngIf="t.invested > 0">
-            <input aria-describedby="cur" type="text" class="current" [(ngModel)]="t.current" (change)="updateLocalstorage(t)">
+            <input aria-describedby="cur" type="text" class="current" [(ngModel)]="t.current" (change)="updateLocalPrice(t)">
           </div>
         </div>
         <div fdn-grid-item [col]="2" class="row">
@@ -100,7 +103,7 @@
               {{ round((t.current - t.price) * t.shares) }}
             </ng-container>
             <ng-template #notInvestedGains>
-              {{ -(t.invested) }}
+              {{ -(round(t.invested)) }}
             </ng-template>
           </button>
         </div>

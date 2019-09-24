@@ -42,8 +42,6 @@ export class TradeAdderComponent implements OnInit {
       commission: +this.trade.value.comm,
       ticker: this.trade.value.ticker,
     };
-    console.log(trade);
-    
     this.dialogRef.close(trade);
   }
 }

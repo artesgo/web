@@ -28,15 +28,17 @@
   </button>
   <fdn-img src="./assets/violin.jpg" alt="testing img" [angle]="30" height="40" width="200" left="120" top="135"></fdn-img>
   <div class="fdn-login">
-    <div class="fdn-sessionless" *ngIf="!user">
+    <div class="fdn-sessionless" *ngIf="!(user$ | async)">
       <button (click)="signin()">Login</button>
       <button (click)="signup()">Signup</button>
     </div>
-    <div class="fdn-session" *ngIf="user">
-      <button (click)="signout()">
-        {{ user.displayName ? user.displayName : user.email }}
-      </button>
-    </div>
+    <ng-container *ngIf="user$ | async as user">
+      <div class="fdn-session" *ngIf="user">
+        <button (click)="signout(user)">
+          {{ user.displayName ? user.displayName : user.email }}
+        </button>
+      </div>
+    </ng-container>
   </div>
 </div>
 <mat-drawer-container class="example-container">

@@ -12,6 +12,11 @@ import { FoundationModule } from 'artesgo-foundation';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TradeAdderComponent } from './trade-adder/trade-adder.component';
 import { TradeDeleteComponent } from './trade-delete/trade-delete.component';
+import { TradePipe } from './trade.pipe';
+import { StoreModule } from '@ngrx/store';
+import { tradeFeature, tradeReducer } from './trade/+state/trade.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TradeEffects } from './trade/+state/trade.effects';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,7 @@ import { TradeDeleteComponent } from './trade-delete/trade-delete.component';
     TradeAggregateComponent,
     TradeAdderComponent,
     TradeDeleteComponent,
+    TradePipe,
   ],
   imports: [
     CommonModule,
@@ -30,6 +36,8 @@ import { TradeDeleteComponent } from './trade-delete/trade-delete.component';
     MaterialModule,
     FoundationModule,
     ReactiveFormsModule,
+    StoreModule.forFeature(tradeFeature, tradeReducer),
+    EffectsModule.forFeature([TradeEffects]),
   ],
   entryComponents: [
     TradeAdderComponent,
