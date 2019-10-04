@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChildren, ElementRef } from '@angular/core';
 import { TradeDocument, TradeAggregate } from '../trade';
 import { MatDialog } from '@angular/material/dialog'
-import { TradeAggregateComponent } from '../trade-aggregate/trade-aggregate.component';
 import { TradeFacade } from './trade.facade';
 import { TradeAdderComponent } from '../trade-adder/trade-adder.component';
 import { TradeDeleteComponent } from '../trade-delete/trade-delete.component';
 import { AuthenticationFacade } from '../../services/authentication.facade';
+import { Observable } from 'rxjs';
+import { aggregator } from './+state/trade.selectors';
 
 @Component({
   selector: 'fdn-trade',
@@ -13,8 +14,8 @@ import { AuthenticationFacade } from '../../services/authentication.facade';
   styleUrls: ['./trade.component.scss']
 })
 export class TradeComponent implements OnInit {
-  trades: TradeDocument[];
-  aggregated: TradeAggregate[] = [];
+  trade$: Observable<TradeDocument[]>;
+  aggregate$: Observable<TradeAggregate[]>;
   consolidation: TradeDocument[] = [];
   consolidating = '';
   title = 0;
@@ -40,99 +41,11 @@ export class TradeComponent implements OnInit {
       if (!!user) {
         this.ts.retrieveData(user);
       }
-    })
-    // TODO: Create listener for auth state change
-    this.ts.getTrades().subscribe((trades: TradeDocument[]) => {
-      // layout retrieved as fields in document, which needs to be turned into array
-      this.trades = trades;
-      for (let t of this.trades) {
-        // should not update local storage data
-        this.addToAggregate(t);
-      }
     });
+    this.trade$ = this.ts.getTrades();
+    this.aggregate$ = this.ts.getAggregate();
   }
 
-  /**
-   * Get cumulative earnings for ticker
-   * @param ticker 
-   */
-  aggregate(ticker: string, trades: TradeDocument[]) {
-    let _invested = 0;
-    let _shares = 0;
-    let _comm = 0;
-    trades.map((transaction: TradeDocument) => {
-      if (transaction.ticker === ticker) {
-        _comm += (transaction.commission ? transaction.commission : 0);
-        _invested += (transaction.shares * transaction.price);
-        _shares += transaction.shares;
-      }
-    });
-    const ret: TradeAggregate = {
-      invested: this.round(_invested),
-      shares: _shares,
-      price: 0,
-      commission: _comm,
-      ticker: ticker,
-      current: 0,
-    };
-    if (ret.shares) {
-      ret.price = this.round(ret.invested / ret.shares);
-      ret.current = ret.price;
-    }
-    return ret;
-  }
-
-  openDialog(ticker: string) {
-    const _trade = this.aggregated.find(trade => trade.ticker === ticker);
-    this.dialog.open(TradeAggregateComponent, {
-      width: '250px',
-      data: _trade
-    });
-  }
-
-  /**
-   * Update existing aggregate object
-   * @param trade 
-   */
-  updateAggregate(trade: TradeDocument, adding: boolean) {
-    this.aggregated = this.aggregated.map(t => {
-      if (t.ticker === trade.ticker) {
-        if (adding) {
-          t.commission += trade.commission;
-          t.invested += trade.price * trade.shares;
-          t.shares += trade.shares;
-        } else {
-          t.commission -= trade.commission;
-          t.invested -= trade.price * trade.shares;
-          t.shares -= trade.shares;
-        }
-        t.price = this.round(t.invested / t.shares);
-        t = this.getLocalPrice(t);
-      }
-      return t;
-    });
-  }
-
-  /**
-   * When creating trades, call this to update or create new aggregate
-   * @param trade 
-   */
-  addToAggregate(trade: TradeDocument) {
-    if (this.aggregated.find(t => trade.ticker === t.ticker)) {
-      this.updateAggregate(trade, true);
-    } else {
-      let tradeAgg: TradeAggregate = {
-        ticker: trade.ticker,
-        shares: trade.shares,
-        price: trade.price,
-        invested: trade.price * trade.shares,
-        commission: trade.commission,
-        current: trade.price
-      }
-      tradeAgg = this.getLocalPrice(tradeAgg);
-      this.aggregated.push(tradeAgg);
-    }
-  }
 
   /**
    * Add Trade Dialog
@@ -143,11 +56,8 @@ export class TradeComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((trade: TradeDocument) => {
       if (trade) {
-        trade.user = this.uid;
         this.ts.addTrade(trade);
         this.updateLocalPrice(trade);
-        this.addToAggregate(trade);
-        this.trades.push(trade);
       }
     })
   }
@@ -170,8 +80,6 @@ export class TradeComponent implements OnInit {
 
   deleteTrade(trade: TradeDocument) {
     this.ts.deleteTrade(trade);
-    this.trades = this.trades.filter(t => t.key !== trade.key);
-    this.updateAggregate(trade, false);
   }
 
   /**
@@ -243,9 +151,9 @@ export class TradeComponent implements OnInit {
    * @param consolidate 
    */
   performConsolidation(consolidate: TradeDocument[]): TradeDocument {
-    const [ last, ...rest ] = consolidate.reverse();
+    let [ last, ...rest ] = consolidate.reverse();
     let consolidated: TradeAggregate;
-    consolidated = this.aggregate(last.ticker, consolidate);
+    [consolidated] = aggregator(consolidate);
 
     // delete consolidated trades
     // update last trade
@@ -253,30 +161,43 @@ export class TradeComponent implements OnInit {
     trade.shares = consolidated.shares;
     trade.ticker = consolidated.ticker;
     trade.commission = consolidated.commission;
-    trade.price = this.round(consolidated.invested / consolidated.shares);
+    // RULE: if consolidated shares is 0, do not divide
+    if (consolidated.shares === 0) {
+      trade.price = -consolidated.invested;
+    } else {
+      trade.price = this.round(consolidated.invested / consolidated.shares);
+    }
 
     trade.key = last.key;
     trade.timestamp = last.timestamp;
     trade.user = last.user ? last.user : this.uid;
 
-    // TODO: Consolidated Value is off
     this.ts.updateTrade(trade);
     for (let t of rest) {
-      this.ts.deleteTrade(t);
+      t['checked'] = false;
+      this.hideTrade(t);
     }
+
+    this.clearConsolidation();
+
+    last.shares = trade.shares;
+    last.price = trade.price;
+    last['checked'] = false;
     return trade;
+  }
+
+  hideTrade(trade: TradeDocument) {
+    trade['deleted'] = true;
+    this.ts.deleteTrade(trade);
   }
 
   trackByFn(trade: TradeDocument) {
     return trade.key;
   }
 
-  private getLocalPrice(trade: TradeAggregate): TradeAggregate {
-    const localPrice = Number.parseFloat(localStorage.getItem(trade.ticker));
-    if (localPrice) {
-      trade.current = localPrice;
-    }
-    return trade;
+  clearConsolidation() {
+    this.consolidating = '';
+    this.consolidation = [];
   }
 
   updateLocalPrice(trade: TradeDocument | TradeAggregate) {
@@ -284,7 +205,7 @@ export class TradeComponent implements OnInit {
     localStorage.setItem(trade.ticker, price.toString());
   }
 
-  tradeCount(trade: TradeDocument) {
-    return this.trades.filter( t => trade.ticker === t.ticker).length > 1;
+  tradeCount(trades, trade: TradeDocument) {
+    return trades.filter( t => trade.ticker === t.ticker).length > 1;
   }
 }

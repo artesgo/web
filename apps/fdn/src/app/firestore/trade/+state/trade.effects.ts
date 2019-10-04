@@ -49,6 +49,19 @@ export class TradeEffects {
     )
   )
 
+  adder$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(TRADE_ACTIONS.TRADE_ADD),
+      pluck('trade'),
+      mergeMap((trade: TradeDocument) => {
+        return this.ts.addTrade(trade).pipe(
+          map(res => TRADE_ACTIONS.TRADE_ADD_SUCCESS({ trade })),
+          catchError(error => EMPTY)
+        )
+      })
+    )
+  )
+
   constructor(
     private actions$: Actions,
     private ts: TradeService,

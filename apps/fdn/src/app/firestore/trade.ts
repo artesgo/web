@@ -19,6 +19,6 @@ export class TradeAggregate extends TradeArgs {
 }
 
 export const mockTrades: TradeDocument[] = [
-    { key: '1234', user: 'jon', timestamp: 1234, shares: 10, price: 100, commission: 10, ticker: 'rbc' },
-    { key: '1234', user: 'jon', timestamp: 1234, shares: 10, price: 110, commission: 10, ticker: 'rbc' },
+    { key: '1', user: 'jon', timestamp: 1, shares: 10, price: 100, commission: 10, ticker: 'rbc' },
+    { key: '2', user: 'jon', timestamp: 2, shares: 10, price: 110, commission: 10, ticker: 'rbc' },
 ]

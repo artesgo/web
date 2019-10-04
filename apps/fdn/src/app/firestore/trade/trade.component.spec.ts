@@ -25,7 +25,7 @@ describe('TradeComponent', () => {
   });
 
   it('should consolidate trades', () => {
-    const trade = component.updateConsolidatedTradeDocument(mockTrades)
+    const trade = component.performConsolidation(mockTrades)
     expect(trade.price).toBe(105);
   });
 });

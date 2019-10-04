@@ -22,28 +22,32 @@
       </div>
     
       <!-- data -->
-      <ng-container *ngFor="let t of trades  | tradeFilter: consolidating; let row = index; trackBy: trackByFn">
+      <ng-container *ngFor="let t of trade$ | async | tradeFilter: consolidating as trades; let row = index; trackBy: trackByFn;">
         <ng-template #rowMarker><span class="accessible">row {{ row + 1 }}</span></ng-template>
-        <div fdn-grid-item [col]="1" class="row col-start">
+        <div fdn-grid-item [col]="1" [class.hidden]="t.deleted" class="row col-start">
           <button aria-describedby="tic" class="tic text"
             (keypress.ArrowDown)="navigate()">{{ t.ticker }}
             <ng-container *ngTemplateOutlet="rowMarker"></ng-container>
           </button>
           <button aria-describedby="inv" class="tic text">{{ t.price * t.shares | number: '1.2-2' }}</button>
-        </div>  
-        <div fdn-grid-item [col]="2" class="row">
-          <button aria-describedby="pri" class="col pri num">{{ t.price | number: '1.2-2' }}</button>
+        </div> 
+        <div fdn-grid-item [col]="2" [class.hidden]="t.deleted" class="row">
+          <button aria-describedby="pri" class="col pri num"
+            [class.buy]="t.shares > 0"
+            [class.sell]="t.shares < 0"
+            [class.sold]="t.shares === 0"
+            >{{ t.price | number: '1.2-2' }}</button>
           <button aria-describedby="sha" class="col sha num">{{ t.shares }}</button>
         </div>
-        <div fdn-grid-item [col]="3" class="row">
+        <div fdn-grid-item [col]="3" [class.hidden]="t.deleted" class="row">
           <button aria-describedby="dat" class="col dat num">{{ t.timestamp | date:'shortDate' }}</button>
           <button aria-describedby="com" class="col com num" *ngIf="t.commission">{{ t.commission | number: '1.2-2' }}</button>
         </div>
-        <div fdn-grid-item [col]="4" class="row col-end">
+        <div fdn-grid-item [col]="4" [class.hidden]="t.deleted" class="row col-end">
           <button class="col" (click)="delete(t)">delete</button>
           <!-- show if consolidation list is 0 -->
           <!-- or if consolidating ticker == t.ticker -->
-          <label class="col con" *ngIf="(consolidation.length === 0 || consolidating === t.ticker) && tradeCount(t)">
+          <label class="col con" *ngIf="(consolidation.length === 0 || consolidating === t.ticker) && tradeCount(trades, t)">
             <input type="checkbox" (change)="consolidate($event, t)" [checked]="t.checked">
             <span class="col accessible">select to </span>consolidate
           </label>
@@ -51,7 +55,6 @@
       </ng-container>
     </fdn-grid>
   </div>
-  
   <div class="flex-child">
     <h2>Consolidated</h2>
     <fdn-grid [cols]="4" [columnSizes]="colSizes">
@@ -71,15 +74,15 @@
         <div id="com">Commission</div>
       </div>
     
-      <ng-container *ngFor="let t of aggregated; let row = index;">
+      <ng-container *ngFor="let t of aggregate$ | async as aggregated; let row = index;">
         <div fdn-grid-item [col]="1" class="row col-start">
           <button aria-describedby="tic" class="tic text">{{ t.ticker }}</button>
-          <div *ngIf="t.invested > 0">
+          <div *ngIf="t.shares > 0">
             <input aria-describedby="cur" type="text" class="current" [(ngModel)]="t.current" (change)="updateLocalPrice(t)">
           </div>
         </div>
         <div fdn-grid-item [col]="2" class="row">
-          <ng-container *ngIf="t.invested > 0; else notInvested">
+          <ng-container *ngIf="t.shares > 0; else notInvested">
             <button aria-describedby="inv" class="col inv num">
               {{ t.invested | number: '1.2-2' }}
             </button>
@@ -99,11 +102,11 @@
         <div fdn-grid-item [col]="3" class="row">
           <button aria-describedby="sha" class="col sha num">{{ t.shares }}</button>
           <button aria-describedby="gl" class="col gl num">
-            <ng-container *ngIf="t.invested > 0; else notInvestedGains">
+            <ng-container *ngIf="t.shares > 0; else notInvestedGains">
               {{ round((t.current - t.price) * t.shares) }}
             </ng-container>
             <ng-template #notInvestedGains>
-              {{ -(round(t.invested)) }}
+              {{ round(t.invested) }}
             </ng-template>
           </button>
         </div>

@@ -9,15 +9,17 @@ import { Observable, from } from 'rxjs';
 })
 export class TradeService extends FirestoreService {
     COLLECTION = tradeFeature;
+    uid: string;
 
     get(user: firebase.User): Observable<any> {
+        this.uid = user.uid;
         return this.collection(this.COLLECTION, user.uid);
     }
 
-    // TODO: insert user id into trade$ object
     addTrade(trade: TradeDocument): Observable<any> {
         trade.timestamp = +new Date();
-        trade.key = `${trade.timestamp}_${trade.ticker}_${trade.shares}`
+        trade.user = this.uid;
+        trade.key = `${trade.timestamp}_${trade.user}`;
         return from(this.addDocument(this.COLLECTION, trade));
     }
 

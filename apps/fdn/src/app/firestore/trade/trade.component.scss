@@ -76,3 +76,17 @@ input[type="text"] {
     box-sizing: border-box;
     width: 100%;
 }
+
+.hidden {
+    display: none;
+}
+
+.buy {
+    background: #FC0;
+}
+.sell {
+    background: #F0C;
+}
+.sold {
+    background: #CCC;
+}

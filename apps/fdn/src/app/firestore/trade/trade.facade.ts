@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TradeDocument } from '../trade';
 import { Store, select } from '@ngrx/store';
 import { TRADE_ACTIONS } from './+state/trade.actions';
-import { tradesSelector } from './+state/trade.selectors';
+import { aggregateSelector, tickerSelector } from './+state/trade.selectors';
 import { IState } from '../../+state/app.reducer';
 
 @Injectable({
@@ -14,8 +14,12 @@ export class TradeFacade  {
     constructor(private store: Store<IState>) {
     }
 
-    getTrades() {
-        return this.store.pipe(select(tradesSelector));
+    getTrades(trade?: TradeDocument) {
+        return this.store.pipe(select(tickerSelector, trade));
+    }
+
+    getAggregate(trade?: TradeDocument) {
+        return this.store.pipe(select(aggregateSelector, trade));
     }
 
     retrieveData(user: firebase.User) {
