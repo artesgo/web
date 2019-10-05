@@ -15,7 +15,7 @@
         <input matInput placeholder="password" type="password" formControlName="password">
       </mat-form-field>
     </ng-container>
-    <button (click)="signin()">
+    <button (click)="signin()" mat-raised-button color="primary">
       <ng-container *ngTemplateOutlet="action"></ng-container>
     </button>
   </form>

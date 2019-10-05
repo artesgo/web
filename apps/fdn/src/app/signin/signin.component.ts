@@ -23,14 +23,13 @@ export class SigninComponent implements OnInit {
     public dialogRef: MatDialogRef<SigninComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private auth: AuthenticationFacade,
-  ) {
-    this.login = fb.group({
+  ) { }
+
+  ngOnInit() {
+    this.login = this.fb.group({
       email: this.email,
       password: this.password,
     });
-  }
-
-  ngOnInit() {
   }
 
   signin() {

@@ -23,14 +23,17 @@ export function aggregator(trades: TradeDocument[]): TradeAggregate[] {
   const aggregated: TradeAggregate[] = [];
   for (let trade of trades) {
     let aggregate = aggregated.find(t => t.ticker === trade.ticker);
+    // aggregate does not exist, initialize it
     if (!aggregate) {
       aggregate = new TradeAggregate();
       aggregate.ticker = trade.ticker;
       aggregate.invested = 0;
       aggregate.shares = 0;
       aggregate.commission = 0;
+      // only add to agg[] if it's new
       aggregated.push(aggregate);
     }
+
     aggregate.shares += trade.shares;
     aggregate.commission += trade.commission;
 
@@ -39,7 +42,6 @@ export function aggregator(trades: TradeDocument[]): TradeAggregate[] {
     } else {
       aggregate.invested += trade.price;
     }
-
     
     if (aggregate.shares !== 0) {
       const localPrice = Number.parseFloat(localStorage.getItem(aggregate.ticker));
@@ -47,6 +49,11 @@ export function aggregator(trades: TradeDocument[]): TradeAggregate[] {
         aggregate.current = localPrice;
       }
       aggregate.price = Math.round(aggregate.invested / aggregate.shares * 100) / 100;
+    } else {
+      // invert invested incase aggregate zero
+      if (trades.filter(t => t.ticker === aggregate.ticker).length > 1) {
+        aggregate.invested = -aggregate.invested;
+      }
     }
   }
   return aggregated;
