@@ -21,6 +21,7 @@ import { SigninComponent } from './signin/signin.component';
 import { FoundationModule } from '@fdn/foundation';
 // import { FoundationModule } from 'artesgo-foundation';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './+state/app.reducer';
 import { AppEffects } from './+state/app.effects';
@@ -40,10 +41,14 @@ import { AppEffects } from './+state/app.effects';
     FoundationModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firestore),
     AngularFirestoreModule,
     AngularFireAuthModule,
     StoreModule.forRoot({ count: appReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     EffectsModule.forRoot([AppEffects]),
     BrowserAnimationsModule, // imports firebase/firestore, only needed for database features
     MaterialModule,

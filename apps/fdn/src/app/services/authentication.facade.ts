@@ -5,7 +5,6 @@ import { APP_ACTIONS } from '../+state/app.actions';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { userSelector } from '../+state/app.selector';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

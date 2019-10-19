@@ -1,0 +1,60 @@
+@import '_media';
+@import '_mixins';
+
+$unit: 8px;
+
+nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+
+    a {
+        margin: $unit;
+    }
+}
+
+.button-container {
+    position: fixed;
+    z-index: 10;
+    background: #333;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    @include mobile {
+        position: relative;
+    }
+
+    button {
+        background: none;
+        border: none;
+        height: 24px;
+        margin: 8px;
+    }
+
+    .fdn-nav {
+        background: #FC0;
+    }
+
+    .fdn-skip {
+        position: fixed;
+        width: 100%;
+        background: #FC0;
+        z-index: 20;
+    }
+
+    .fdn-login {
+        position: relative;
+        background: #FC0;
+    }
+}
+
+header {
+    display: flex;
+    @include desktop {
+        margin-top: 2rem;
+    }
+}
+
+main {
+    min-height: 100vh;
+}

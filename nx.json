@@ -16,6 +16,12 @@
     },
     "foundation": {
       "tags": []
+    },
+    "growcery": {
+      "tags": []
+    },
+    "growcery-e2e": {
+      "tags": []
     }
   }
 }

@@ -4,10 +4,16 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "build:lib": "ng build --project=foundation",
-    "test": "ng test",
+    "start:fdn": "ng serve --project=fdn",
+    "start:grw": "ng serve --project=growcery",
+    "prebuild:fdn": "rm -r ./dist/apps/ && rsync -r ./config/fdn/ ./dist/apps/",
+    "prebuild:grw": "rm -r ./dist/apps/ && rsync -r ./config/growcery/ ./dist/apps/",
+    "build:fdn": "ng build fdn",
+    "build:grw": "ng build growcery",
+    "build:lib": "ng build --project=foundation && cp ./libs/foundation/_fdn.scss ./dist/libs/foundation/ && rsync -r ./libs/foundation/styles/* ./dist/libs/foundation/styles",
+    "test:fdn": "ng test --project=fdn -- --watch",
+    "test:grw": "ng test --project=growcery -- --watch",
+    "test:lib": "ng test --library=foundation -- --watch",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e",
     "affected:apps": "./node_modules/.bin/nx affected:apps",
@@ -43,6 +49,7 @@
     "@ngrx/effects": "^8.3.0",
     "@ngrx/store": "^8.3.0",
     "@ngrx/store-devtools": "^8.3.0",
+    "@types/stripe-v3": "^3.1.9",
     "artesgo-foundation": "0.0.4",
     "core-js": "^2.5.4",
     "d3": "^5.9.2",
@@ -59,6 +66,7 @@
     "@angular/language-service": "^7.2.15",
     "@nrwl/builders": "7.8.3",
     "@nrwl/schematics": "7.8.3",
+    "@nrwl/workspace": "^8.6.0",
     "@types/d3": "^5.7.2",
     "@types/jest": "24.0.9",
     "@types/jquery": "3.3.6",
@@ -74,6 +82,8 @@
     "tsickle": ">=0.34.0",
     "tslib": "^1.10.0",
     "tslint": "~5.11.0",
-    "typescript": "3.2.2"
+    "typescript": "3.2.2",
+    "@nrwl/jest": "8.6.0",
+    "ts-jest": "24.0.0"
   }
 }
