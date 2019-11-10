@@ -1,11 +1,11 @@
 <section>
-  <h1>{{ data.ticker.toUpperCase() }}</h1>
+  <h1>{{ data.ticker?.toUpperCase() }}</h1>
 
-  <hr>
+  <hr />
 
   <form class="example-form" [formGroup]="priceForm" *ngIf="data.invested > 0">
     <mat-form-field>
-      <input matInput placeholder="Current Price" formControlName="price">
+      <input matInput placeholder="Current Price" formControlName="price" />
     </mat-form-field>
   </form>
 
@@ -14,10 +14,10 @@
     <span>{{ earnings | number: '1.2-2' }}</span>
   </div>
 
-  <hr>
+  <hr />
   <div class="invested">
     <span>Invested</span>
-    <span *ngIf="data.invested > 0 else noInvested">{{ data.invested }}</span>
+    <span *ngIf="data.invested > 0; else noInvested">{{ data.invested }}</span>
     <ng-template #noInvested>
       <span>0</span>
     </ng-template>
@@ -35,9 +35,9 @@
     <span>{{ data.commission }}</span>
   </div>
 
-  <hr>
+  <hr />
   <div class="total">
-      <span>Total</span>
-      <span>{{ earnings - data.commission | number: '1.2-2' }}</span>
-    </div>
+    <span>Total</span>
+    <span>{{ earnings - data.commission | number: '1.2-2' }}</span>
+  </div>
 </section>

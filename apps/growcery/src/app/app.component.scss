@@ -50,11 +50,10 @@ nav {
 
 header {
     display: flex;
-    @include desktop {
         margin-top: 2rem;
-    }
 }
 
 main {
     min-height: 100vh;
+    margin: 0 3rem;
 }

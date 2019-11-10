@@ -5,14 +5,12 @@ import { TradeDocument } from './trade';
   name: 'tradeFilter'
 })
 export class TradePipe implements PipeTransform {
-
-  transform(trades: TradeDocument[], ticker: string): any {
+  transform(trades: TradeDocument[], ticker: string): TradeDocument[] {
     if (ticker === '') {
       return trades;
     }
     if (trades.length > 0) {
-      return trades.filter( t => t.ticker === ticker);
+      return trades.filter(t => t.ticker === ticker);
     }
   }
-
 }

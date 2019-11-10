@@ -1,5 +1,6 @@
 export class Growcery {
     name: string;
+    brand: string;
     sale: number;
     bulk: number;
     error: boolean;
@@ -9,4 +10,7 @@ export class Growcery {
     weight: number;
     unit: string;
     upc: number;
+    vegan: boolean;
+    packaged: boolean;
+    expiry?: number;
 }

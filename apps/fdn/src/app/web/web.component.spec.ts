@@ -4,19 +4,9 @@ import { WebComponent } from './web.component';
 
 describe('WebComponent', () => {
   let component: WebComponent;
-  let fixture: ComponentFixture<WebComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ WebComponent ]
-    })
-    .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WebComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new WebComponent();
   });
 
   it('should create', () => {

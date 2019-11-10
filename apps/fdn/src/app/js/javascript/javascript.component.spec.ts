@@ -4,19 +4,9 @@ import { JavascriptComponent } from './javascript.component';
 
 describe('JavascriptComponent', () => {
   let component: JavascriptComponent;
-  let fixture: ComponentFixture<JavascriptComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ JavascriptComponent ]
-    })
-    .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JavascriptComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new JavascriptComponent();
   });
 
   it('should create', () => {

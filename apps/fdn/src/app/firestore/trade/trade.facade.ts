@@ -6,35 +6,34 @@ import { aggregateSelector, tickerSelector } from './+state/trade.selectors';
 import { IState } from '../../+state/app.reducer';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class TradeFacade  {
-    COLLECTION = 'trades';
+export class TradeFacade {
+  COLLECTION = 'trades';
 
-    constructor(private store: Store<IState>) {
-    }
+  constructor(private store: Store<IState>) {}
 
-    getTrades(trade?: TradeDocument) {
-        return this.store.pipe(select(tickerSelector, trade));
-    }
+  getTrades(trade?: TradeDocument) {
+    return this.store.pipe(select(tickerSelector, trade));
+  }
 
-    getAggregate(trade?: TradeDocument) {
-        return this.store.pipe(select(aggregateSelector, trade));
-    }
+  getAggregate(trade?: TradeDocument) {
+    return this.store.pipe(select(aggregateSelector, trade));
+  }
 
-    retrieveData(user: firebase.User) {
-        this.store.dispatch(TRADE_ACTIONS.TRADE_GET({ user }));
-    }
+  retrieveData(user: firebase.User) {
+    this.store.dispatch(TRADE_ACTIONS.TRADE_GET({ user }));
+  }
 
-    addTrade(trade: TradeDocument) {
-        this.store.dispatch(TRADE_ACTIONS.TRADE_ADD({ trade }));
-    }
+  addTrade(trade: TradeDocument) {
+    this.store.dispatch(TRADE_ACTIONS.TRADE_ADD({ trade }));
+  }
 
-    updateTrade(trade: TradeDocument) {
-        this.store.dispatch(TRADE_ACTIONS.TRADE_UPD({ trade }));
-    }
+  updateTrade(trade: TradeDocument) {
+    this.store.dispatch(TRADE_ACTIONS.TRADE_UPD({ trade }));
+  }
 
-    deleteTrade(trade: TradeDocument) {
-        this.store.dispatch(TRADE_ACTIONS.TRADE_DEL({ trade }));
-    }
+  deleteTrade(trade: TradeDocument) {
+    this.store.dispatch(TRADE_ACTIONS.TRADE_DEL({ trade }));
+  }
 }

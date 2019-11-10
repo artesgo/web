@@ -25,6 +25,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './+state/app.reducer';
 import { AppEffects } from './+state/app.effects';
+import { HttpClientModule } from '@angular/common/http';
+import { translocoLoader } from './transloco.loader';
+import { TranslocoModule, TRANSLOCO_CONFIG, TranslocoConfig } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [
@@ -53,8 +56,19 @@ import { AppEffects } from './+state/app.effects';
     BrowserAnimationsModule, // imports firebase/firestore, only needed for database features
     MaterialModule,
     SharedModule,
+    HttpClientModule,
+    TranslocoModule,
   ],
-  providers: [],
+  providers: [{
+      provide: TRANSLOCO_CONFIG,
+      useValue: {
+        availableLangs: ['en', 'fr'],
+        defaultLang: 'en',
+        prodMode: environment.production,
+      } as TranslocoConfig
+    },
+    translocoLoader
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     SigninComponent

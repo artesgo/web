@@ -4,19 +4,9 @@ import { D3BubbleComponent } from './d3-bubble.component';
 
 describe('D3BubbleComponent', () => {
   let component: D3BubbleComponent;
-  let fixture: ComponentFixture<D3BubbleComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ D3BubbleComponent ]
-    })
-    .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(D3BubbleComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new D3BubbleComponent();
   });
 
   it('should create', () => {

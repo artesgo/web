@@ -4,19 +4,9 @@ import { NavComponent } from './nav.component';
 
 describe('NavComponent', () => {
   let component: NavComponent;
-  let fixture: ComponentFixture<NavComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NavComponent ]
-    })
-    .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new NavComponent();
   });
 
   it('should create', () => {

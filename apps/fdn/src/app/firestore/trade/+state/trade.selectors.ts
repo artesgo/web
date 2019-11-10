@@ -4,21 +4,30 @@ import { IState } from '../../../+state/app.reducer';
 import { TradeDocument, TradeAggregate } from '../../trade';
 
 export const tradesFeature = (state: IState) => state.trades;
-export const tradesSelector = createSelector(tradesFeature, (tf: ITradeState) => tf.trades);
-export const scoreSelector = createSelector(tradesFeature, (tf: ITradeState) => tf.score);
+export const tradesSelector = createSelector(
+  tradesFeature,
+  (tf: ITradeState) => {
+    console.log(tf);
 
+    return tf.trades;
+  }
+);
+export const scoreSelector = createSelector(
+  tradesFeature,
+  (tf: ITradeState) => tf.score
+);
 export const tickerSelector = createSelector(
-  tradesSelector, 
-  (trades: TradeDocument[], trade?: TradeDocument) => trades.filter(t => {
-    if(!trade || trade === undefined) {
-      return t;
-    }
-    if (t.key === trade.key) {
-      return t;
-    }
-  })
-)
-
+  tradesSelector,
+  (trades: TradeDocument[], trade?: TradeDocument) =>
+    trades.filter(t => {
+      if (!trade || trade === undefined) {
+        return t;
+      }
+      if (t.key === trade.key) {
+        return t;
+      }
+    })
+);
 export function aggregator(trades: TradeDocument[]): TradeAggregate[] {
   const aggregated: TradeAggregate[] = [];
   for (let trade of trades) {
@@ -42,13 +51,16 @@ export function aggregator(trades: TradeDocument[]): TradeAggregate[] {
     } else {
       aggregate.invested += trade.price;
     }
-    
+
     if (aggregate.shares !== 0) {
-      const localPrice = Number.parseFloat(localStorage.getItem(aggregate.ticker));
+      const localPrice = Number.parseFloat(
+        localStorage.getItem(aggregate.ticker)
+      );
       if (localPrice) {
         aggregate.current = localPrice;
       }
-      aggregate.price = Math.round(aggregate.invested / aggregate.shares * 100) / 100;
+      aggregate.price =
+        Math.round((aggregate.invested / aggregate.shares) * 100) / 100;
     } else {
       // invert invested incase aggregate zero
       if (trades.filter(t => t.ticker === aggregate.ticker).length > 1) {
@@ -58,8 +70,7 @@ export function aggregator(trades: TradeDocument[]): TradeAggregate[] {
   }
   return aggregated;
 }
-
 export const aggregateSelector = createSelector(
   tradesSelector,
   (trades: TradeDocument[]): TradeAggregate[] => aggregator(trades)
-)
+);

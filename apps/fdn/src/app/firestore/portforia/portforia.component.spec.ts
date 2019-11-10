@@ -1,25 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PortforiaComponent } from './portforia.component';
+import { LayoutService } from './portforia.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 describe('PortforiaComponent', () => {
   let component: PortforiaComponent;
-  let fixture: ComponentFixture<PortforiaComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PortforiaComponent ]
-    })
-    .compileComponents();
-  }));
+  let mockLayoutService: LayoutService;
+  let mockAngularFirestore: AngularFirestore;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PortforiaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    mockLayoutService = new LayoutService(mockAngularFirestore);
+    jest.spyOn(mockLayoutService, 'get');
+    jest.spyOn(mockLayoutService, 'collection');
+    jest.spyOn(mockLayoutService, 'addLayout');
+    component = new PortforiaComponent(mockLayoutService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('should retrieve data from layout service', () => {
+  //   component.ngOnInit();
+  //   expect(mockLayoutService.get).toBeCalledTimes(1);
+  // });
 });

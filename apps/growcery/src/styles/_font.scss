@@ -1,0 +1,20 @@
+@font-face {
+    font-family: Karla;
+    src: url(assets/fonts/Karla-Regular.ttf) format("opentype");
+}
+@font-face {
+    font-family: KarlaBold;
+    src: url(assets/fonts/Karla-Bold.ttf) format("opentype");
+}
+@font-face {
+    font-family: KarlaItalic;
+    src: url(assets/fonts/Karla-Italic.ttf) format("opentype");
+}
+@font-face {
+    font-family: KarlaBoldItalic;
+    src: url(assets/fonts/Karla-BoldItalic.ttf) format("opentype");
+}
+
+* {
+    font-family: "Karla", Verdana, Tahoma, sans-serif;
+}

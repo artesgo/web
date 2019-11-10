@@ -1,45 +1,45 @@
 <div class="button-container">
-    <button
-      class="fdn-skip"
-      [class.accessible]="!showSkip"
-      (focus)="showSkip = true"
-      (blur)="showSkip = false"
-      (click)="skipToMain()"
-      >
-      Skip to Main Content
-    </button>
-    <button class="fdn-nav" (click)="navOpen = !navOpen" [attr.aria-expanded]="navOpen">
-      <svg width="24px" height="24px">
-        <rect
-          x="0"
-          y="0"
-          [attr.width]="24"
-          [attr.height]="24"
-          [attr.fill]="'#000'">
-        </rect>
-        <rect [@nav]="navOpen"
-          x="3"
-          y="3"
-          [attr.width]="navOpen ? 7 : 2"
-          [attr.height]="18"
-          [attr.fill]="'#FC0'">
-        </rect>
-      </svg>
-      <span class="accessible">navigation</span>
-    </button>
-    <div class="fdn-login">
-      <ng-container *ngIf="user$ | async as user else noUser">
-        <div class="fdn-session" *ngIf="user">
-          <button (click)="signOut(user)">
-            {{ user.displayName ? user.displayName : user.email }}
-          </button>
-        </div>
-      </ng-container>
-      <ng-template #noUser>
-        <div class="fdn-sessionless">
-          <button (click)="signIn()">Login</button>
-          <button (click)="signUp()">Signup</button>
-        </div>
-      </ng-template>
-    </div>
+  <button
+    class="fdn-skip"
+    [class.accessible]="!showSkip"
+    (focus)="showSkip = true"
+    (blur)="showSkip = false"
+    (click)="skipToMain()"
+    >
+    Skip to Main Content
+  </button>
+  <button [@nav]="navOpen" class="fdn-nav" (click)="navOpen = !navOpen" [attr.aria-expanded]="navOpen">
+    <svg width="24px" height="24px">
+      <rect
+        x="0"
+        y="0"
+        [attr.width]="24"
+        [attr.height]="24"
+        [attr.fill]="'#000'">
+      </rect>
+      <rect 
+        x="3"
+        y="3"
+        [attr.width]="navOpen ? 7 : 2"
+        [attr.height]="18"
+        [attr.fill]="'#FC0'">
+      </rect>
+    </svg>
+    <span class="accessible">navigation</span>
+  </button>
+  <div class="fdn-login">
+    <ng-container *ngIf="user$ | async as user else noUser">
+      <div class="fdn-session" *ngIf="user">
+        <button (click)="signOut(user)">
+          {{ user.displayName ? user.displayName : user.email }}
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #noUser>
+      <div class="fdn-sessionless">
+        <button (click)="signIn()">Login</button>
+        <button (click)="signUp()">Signup</button>
+      </div>
+    </ng-template>
   </div>
+</div>

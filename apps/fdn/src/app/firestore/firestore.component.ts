@@ -9,12 +9,10 @@ import { NavRoute } from '../shared/nav/nav.route';
 export class FirestoreComponent implements OnInit {
   routes: NavRoute[] = [
     { route: '/firestore', label: 'Trades' },
-    { route: '/firestore/portforia', label: 'Portfolio' },
-  ]
+    { route: '/firestore/portforia', label: 'Portfolio' }
+  ];
   item$: any;
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

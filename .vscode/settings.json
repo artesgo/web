@@ -1,0 +1,10 @@
+{
+    "search.quickOpen.includeHistory": false,
+    "search.useGlobalIgnoreFiles": true,
+    "files.exclude": {
+        "**/.vscode": true
+    },
+    "search.exclude": {
+        "**/dist": true
+    }
+}

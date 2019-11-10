@@ -1,25 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GrowceryComponent } from './growcery.component';
+import { GrowceryService } from '../services/growcery.service';
+import { mockGrowceryList } from '../services/growcery.mock';
+import { of } from 'rxjs';
 
 describe('GrowceryComponent', () => {
   let component: GrowceryComponent;
-  let fixture: ComponentFixture<GrowceryComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GrowceryComponent ]
-    })
-    .compileComponents();
-  }));
+  let service: GrowceryService;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GrowceryComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    service = new GrowceryService();
+    component = new GrowceryComponent(service);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should make call to growcery service for items', () => {
+
+    component.ngOnInit();
+    let mockData = service.getGrowceryList();
+    expect(component.growceryList$).toBe(mockData);
   });
 });

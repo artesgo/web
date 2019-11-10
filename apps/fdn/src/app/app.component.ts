@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from "@angular/core";
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { SigninComponent } from './signin/signin.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,9 +8,9 @@ import { AuthenticationFacade } from './services/authentication.facade';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: "fdn-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  selector: 'fdn-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   animations: [
     trigger('nav', [
       transition('false => true', [
@@ -21,26 +21,28 @@ import { Observable } from 'rxjs';
         style({ width: 6 }),
         animate('300ms', style({ width: 2 }))
       ])
-    ]),
+    ])
   ]
 })
 export class AppComponent implements OnInit {
   user$: Observable<firebase.User>;
-  page = "Git"
+  page = 'Git';
   showSkip = false;
   navOpen = false;
   @ViewChild('title') title: ElementRef;
 
-  constructor(private dialog: MatDialog,
+  constructor(
+    private dialog: MatDialog,
     private auth: AuthenticationFacade,
     private activatedRoute: ActivatedRoute,
-    private router:Router
+    private router: Router
   ) {
     this.user$ = this.auth.user;
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => {
-        let child = this.activatedRoute.firstChild;
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => {
+          let child = this.activatedRoute.firstChild;
           while (child) {
             if (child.firstChild) {
               child = child.firstChild;
@@ -51,14 +53,14 @@ export class AppComponent implements OnInit {
             }
           }
           return null;
-      })
-    ).subscribe(event => {
-      this.page = event
-    })
+        })
+      )
+      .subscribe(event => {
+        this.page = event;
+      });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   skipToMain() {
     this.title.nativeElement.focus();

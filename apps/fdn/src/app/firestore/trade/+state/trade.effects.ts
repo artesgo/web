@@ -8,22 +8,20 @@ import { TradeDocument } from '../../trade';
 
 @Injectable()
 export class TradeEffects {
-
   getter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TRADE_ACTIONS.TRADE_GET),
       pluck('user'),
       mergeMap((user: firebase.User) => {
-        return this.ts.get(user)
-          .pipe(
-            map(data => TRADE_ACTIONS.TRADE_GET_SUCCESS({ trades: data })),
-            catchError(error => EMPTY)
-          )
+        return this.ts.get(user).pipe(
+          map(data => TRADE_ACTIONS.TRADE_GET_SUCCESS({ trades: data })),
+          catchError(error => EMPTY)
+        );
       })
     )
   );
 
-  deleter$ = createEffect(() => 
+  deleter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TRADE_ACTIONS.TRADE_DEL),
       pluck('trade'),
@@ -31,12 +29,12 @@ export class TradeEffects {
         return this.ts.deleteTrade(trade).pipe(
           map(res => TRADE_ACTIONS.TRADE_DEL_SUCCESS({ trade })),
           catchError(error => EMPTY)
-        )
+        );
       })
     )
-  )
+  );
 
-  updater$ = createEffect(() => 
+  updater$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TRADE_ACTIONS.TRADE_UPD),
       pluck('trade'),
@@ -44,12 +42,12 @@ export class TradeEffects {
         return this.ts.updateTrade(trade).pipe(
           map(res => TRADE_ACTIONS.TRADE_UPD_SUCCESS({ trade })),
           catchError(error => EMPTY)
-        )
+        );
       })
     )
-  )
+  );
 
-  adder$ = createEffect(() => 
+  adder$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TRADE_ACTIONS.TRADE_ADD),
       pluck('trade'),
@@ -57,14 +55,10 @@ export class TradeEffects {
         return this.ts.addTrade(trade).pipe(
           map(res => TRADE_ACTIONS.TRADE_ADD_SUCCESS({ trade })),
           catchError(error => EMPTY)
-        )
+        );
       })
     )
-  )
+  );
 
-  constructor(
-    private actions$: Actions,
-    private ts: TradeService,
-  ) {
-  }
+  constructor(private actions$: Actions, private ts: TradeService) {}
 }
