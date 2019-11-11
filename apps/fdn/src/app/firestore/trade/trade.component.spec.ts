@@ -5,7 +5,7 @@ import { mockTrades } from '../trade';
 import { FoundationModule } from '@fdn/foundation';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TradePipe } from '../trade.pipe';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { StoreModule, createReducer } from '@ngrx/store';
 import { IState } from '../../+state/app.reducer';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -63,7 +63,6 @@ describe('TradeComponent', () => {
 
   it('should consolidate trades', () => {
     const trade = component.performConsolidation(mockTrades);
-    console.log('derppppppppppp', trade);
     expect(trade.price).toEqual(105);
   });
 });

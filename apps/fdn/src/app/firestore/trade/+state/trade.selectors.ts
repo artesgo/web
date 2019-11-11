@@ -7,9 +7,7 @@ export const tradesFeature = (state: IState) => state.trades;
 export const tradesSelector = createSelector(
   tradesFeature,
   (tf: ITradeState) => {
-    console.log(tf);
-
-    return tf.trades;
+    return tf ? tf.trades : [];
   }
 );
 export const scoreSelector = createSelector(

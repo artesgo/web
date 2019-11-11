@@ -43,7 +43,6 @@ describe('AppEffects', () => {
       }
     };
     effects.signIn$.subscribe(login => {
-      console.log(login);
       expect(login.user).toEqual('heya');
     });
     actions.next(login);

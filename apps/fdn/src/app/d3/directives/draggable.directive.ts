@@ -3,19 +3,23 @@ import { Node, ForceDirectedGraph } from '../models';
 import { D3Service } from '../d3.service';
 
 @Directive({
-    selector: '[draggableNode]'
+  selector: '[draggableNode]'
 })
 export class DraggableDirective implements OnInit {
-    @Input() draggableNode: Node;
-    @Input() draggableInGraph: ForceDirectedGraph;
+  @Input() draggableNode: Node;
+  @Input() draggableInGraph: ForceDirectedGraph;
 
-    constructor(private d3Service: D3Service, private _element: ElementRef) { }
+  constructor(private d3Service: D3Service, private _element: ElementRef) {}
 
-    ngOnInit() {
-        this.d3Service.applyDraggableBehaviour(this._element.nativeElement, this.draggableNode, this.draggableInGraph);
-    }
+  ngOnInit() {
+    this.d3Service.applyDraggableBehaviour(
+      this._element.nativeElement,
+      this.draggableNode,
+      this.draggableInGraph
+    );
+  }
 
-    onClick() {
-        console.log('draggable');
-    }
+  onClick() {
+    // console.log('draggable');
+  }
 }

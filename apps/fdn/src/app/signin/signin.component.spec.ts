@@ -8,7 +8,6 @@ import {
 } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { createReducer, StoreModule } from '@ngrx/store';
-import { TradeDocument } from '../firestore/trade';
 import { IState } from '../+state/app.reducer';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
